@@ -1,6 +1,6 @@
-class Menu { //nome da tela
-  PImage background;
-  PImage btn_start;
+class Menu extends Input { //nome da tela
+  private PImage background;
+  private PImage btn_start;
 
   Menu() {
     background = loadImage("menu.png");
@@ -13,10 +13,9 @@ class Menu { //nome da tela
 
   void events() {
     //PRESS PLAY
-    if (mousePressed && mouseX>434+15 && mouseX<566-15 && mouseY>333+15 && mouseY<466-15) {
+    if (click(434, 333, 130, 130)) {
       image(btn_start, 500, 399);
-      if (frameCount % 60 <= 40)
-        PAGE = 2;
+      PAGE = 2;
     }
   }
 }

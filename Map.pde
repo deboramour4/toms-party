@@ -1,6 +1,6 @@
-class Map {
-  PImage background;
-  PImage btn_party;
+class Map extends Input {
+  private PImage background;
+  private PImage btn_party;
 
   Map() {
     background = loadImage("map.png");
@@ -13,10 +13,9 @@ class Map {
 
   void events() {
     //PRESS PARTY
-    if (mousePressed && mouseX>311 && mouseX<437 && mouseY>285 && mouseY<420) {
+    if (click(311, 285, 130, 130)) {
       image(btn_party, 379, 352);
-      if (frameRate % 60 <= 40)
-        PAGE = 3;
+      PAGE = 3;
     }
   }
 }
