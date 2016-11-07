@@ -13,9 +13,12 @@ class Map extends Input {
 
   void events() {
     //PRESS PARTY
-    if (click(311, 285, 130, 130)) {
-      image(btn_party, 379, 352);
+    if (click(btn_party,379, 352)) {
       PAGE = 3;
     }
+    
+    //DRAG BUTTON
+    drag(btn_party, 500,100);
+    
   }
 }
