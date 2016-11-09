@@ -13,8 +13,8 @@ class Party extends Input {
 
   void events() {
     //PRESS BACK
-    if (click(btn_back,918, 484)) {
-      PAGE = 2;
+    if (clickRadial(btn_back,918, 484)) {
+      PAGE = 4;
     }
   }
 }

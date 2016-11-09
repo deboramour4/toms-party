@@ -9,27 +9,30 @@ class Input {
 
   private float mouseDistance; // for the clickRadial method
 
-  private float newX = -1; // for the drag method
+  private float newX; // for the drag method
   private float newY; // for the drag method
   private boolean draggedArea = false; //for the drag method
 
 
   //this function returns true if the mouse was clicked in a determinated local of the screen
-  // and false if not.
+  //  the paramethers are: a image button, x and y of the image button
   boolean click(PImage image, float x, float y) {
-    if (mousePressed && draggedArea == false && mouseX>x-(image.width/2) && mouseX<x+(image.width/2) && mouseY>y-(image.height/2) && mouseY<y+(image.height/2)) {
+    if (mousePressed && mouseX>x-(image.width/2) && mouseX<x+(image.width/2) && mouseY>y-(image.height/2) && mouseY<y+(image.height/2)) {
       return true;
     } else {
       return false;
     }
   }
 
-  //this function returns true if the mouse was clicked inside of a circle in the screen
-  // and false if not.
-  boolean clickRadial(float x, float y, float r) {
-      if (mousePressed) {
-
-      return true;
+  //this function returns true if the mouse was clicked inside of a circle and false if not.
+  // the paramethers are: a image button, x and y of the image button
+  boolean clickRadial(PImage image, float x, float y) {
+    mouseDistance = sqrt(((mouseX-x)*(mouseX-x))+((mouseY-y)*(mouseY-y)));
+    if (mousePressed) {
+      if (mouseDistance < image.width/2)
+        return true;
+      else
+        return false;
     } else {
       return false;
     }
@@ -62,10 +65,22 @@ class Input {
     }
   }
 
+  //GETS E SETS
   float getNewX() {
     return newX;
   }
   float getNewY() {
     return newY;
+  }
+
+
+  //ROTATE ELEMENTS
+  void rotateIt(PImage image,float x, float y, float angle) {
+    translate(0,0);
+    pushMatrix();
+    translate(x, y);
+    rotate(angle);
+    image(image, 0, 0);
+    popMatrix();
   }
 }

@@ -13,7 +13,7 @@ class Map extends Input {
 
   void events() {
     //PRESS PARTY
-    if (click(btn_party,379, 352)) {
+    if (clickRadial(btn_party,379, 352)) {
       PAGE = 3;
     }
     
