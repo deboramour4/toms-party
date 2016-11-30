@@ -1,6 +1,6 @@
-class Party {
-  PImage background;
-  PImage btn_back;
+class Party extends Input {
+  private PImage background;
+  private PImage btn_back;
 
   Party() {
     background = loadImage("party.png");
@@ -13,9 +13,8 @@ class Party {
 
   void events() {
     //PRESS BACK
-    if (mousePressed && mouseX>918+5 && mouseX<972-5 && mouseY>484+5 && mouseY<538-5) {
-      if (frameRate % 60 <= 40)
-        PAGE = 2;
+    if (clickRadial(btn_back,918, 484)) {
+      PAGE = 4;
     }
   }
 }
