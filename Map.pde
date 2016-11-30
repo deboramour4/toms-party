@@ -18,5 +18,10 @@ class Map {
       if (frameRate % 60 <= 40)
         PAGE = 3;
     }
+    //PRESS PHASE 1
+    if (mousePressed && mouseX>200+15 && mouseX<420-15 && mouseY>70+15 && mouseY<230-15) {
+      if (frameCount % 60 <= 40)
+        PAGE = 4;
+    }
   }
 }
