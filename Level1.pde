@@ -38,6 +38,6 @@ class Level1 extends Input {
       image(bell3_play, 790, 175);
 
     if (clickRadial(btn_map, 69, 502))
-      PAGE = 2 ;
+      PAGE = 3 ;
   }
 }

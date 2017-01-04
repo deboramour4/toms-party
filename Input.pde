@@ -41,11 +41,10 @@ class Input {
 
   //this function returns true if the mouse was inside a determinated local of the screen
   // and false if not.
-  boolean inside(float x, float y, float w, float h) {
-    if (mouseX>x-(w/2) && mouseX<x+(w/2) && mouseY>y-(w/2) && mouseY<y+(h/2)) {
-      return true;
-    } else {
-      return false;
+  void inside(PImage image, float x, float y) {
+    if (mouseX>x-(image.width/2) && mouseX<x+(image.width/2) && mouseY>y-(image.height/2) && mouseY<y+(image.height/2)) {
+      //return true;
+      cursor(HAND);
     }
   }
 
