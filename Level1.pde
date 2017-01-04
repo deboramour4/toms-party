@@ -1,9 +1,11 @@
 class Level1 extends Input {
   private PImage background;
+  private PImage btn_map;
   private PImage bell1, bell2, bell3, bell1_play, bell2_play, bell3_play;
 
   Level1() {
     background = loadImage("level1.png");
+    btn_map = loadImage("btn-map.png");
     bell1 = loadImage("bell.png");
     bell2 = loadImage("bell.png");
     bell3 = loadImage("bell.png");
@@ -19,6 +21,9 @@ class Level1 extends Input {
     rotateIt(bell2, 488, 175, HALF_PI);
     //image(bell2, 488, 175);
     image(bell3, 790, 175);
+
+    //buton map
+    image(btn_map, 69, 502);
   }
 
   void events() {
@@ -31,5 +36,8 @@ class Level1 extends Input {
 
     if (click(bell3, 790, 175)) 
       image(bell3_play, 790, 175);
+
+    if (clickRadial(btn_map, 69, 502))
+      PAGE = 2 ;
   }
 }

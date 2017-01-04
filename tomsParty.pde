@@ -2,6 +2,7 @@ Map map; //2
 Menu menu; //1
 Party party; //3
 Level1 level1; //4
+Level2 level2; //5
 
 int PAGE =1;
 
@@ -12,6 +13,7 @@ void setup() {
   menu = new Menu();
   party = new Party();
   level1 = new Level1();
+  level2 = new Level2();
 }
 
 void draw() {
@@ -34,6 +36,10 @@ void draw() {
   case 4:
     level1.show();
     level1.events();
+    break;
+  case 5:
+    level2.show();
+    level2.events();
     break;
   }
 }
