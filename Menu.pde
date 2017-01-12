@@ -13,9 +13,16 @@ class Menu extends Input { //nome da tela
 
   void events() {
     //PRESS PLAY
-    if (clickRadial(btn_start,500, 400)) {
+    if (clickRadial(btn_start, 500, 400)) {
       image(btn_start, 500, 400);
+      delay(400);
       PAGE = 2;
     }
+  }
+  
+  // ---- efeitos
+  
+  void fadeIn(){
+  
   }
 }

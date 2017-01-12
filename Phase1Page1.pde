@@ -81,7 +81,7 @@ class Phase1Page1 extends Input{
 
   void events() {
     if (clickRadial(btn_map, 69, 502))
-      PAGE = 3 ;
+      PAGE = 4 ;
       
 
     //monster interaction
