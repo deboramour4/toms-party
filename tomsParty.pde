@@ -3,12 +3,14 @@ import beads.*;
 Map map; //3
 Menu menu; //1
 Party party; //2
-Phase1Page1 phase1; //4
+Level1Part1 phase1; //4
 Level1 level1; //5
 Level2 level2; //6
 PImage cursor;
 
 int PAGE =1;
+
+boolean click = false;
 
 void setup() {
   size(1000, 563);   //Dimensões proporcionais às de smartphones em geral
@@ -17,7 +19,7 @@ void setup() {
   map = new Map();
   menu = new Menu();
   party = new Party();
-  phase1 = new Phase1Page1();
+  phase1 = new Level1Part1();
   level1 = new Level1();
   level2 = new Level2();
   fill(0);

@@ -1,4 +1,5 @@
-class Phase1Page1 extends Input{
+class Level1Part1 extends Input{
+  Moves player;
   PImage background;
   PImage mDo, mDoHappy;
   PImage btn1Off, btn2Off, btn3Off, btn1On, btn2On, btn3On ;
@@ -9,8 +10,13 @@ class Phase1Page1 extends Input{
   float time = 0.0;
 
   boolean valido = false;
-  boolean primeira = false;
+  boolean starting = false;
+  boolean ending = false;
   boolean correct = false;
+
+  
+  float x2 = 0.0;       
+  float y2 = 0.0;
 
   AudioContext ac;
   // this will hold the path to our audio file
@@ -27,10 +33,14 @@ class Phase1Page1 extends Input{
   Glide gainValue;
 
 
-  Phase1Page1() {
+  Level1Part1() {
+    delay(1000);
     background = loadImage("tela1.png");
-    //monster
-    mDo = loadImage("dó.png");
+    
+    player = new Moves(75, 77,2);
+    player.animations[0] = new Animation("dó",1,".png");
+    player.animations[1] = new Animation("sprite", 4, ".png");
+    //player
     mDoHappy = loadImage("dó2.png");
 
     //buttons
@@ -75,7 +85,18 @@ class Phase1Page1 extends Input{
   void show() {
     image(background, width/2, height/2);
     
-    //buton map
+    if (mousePressed && !click) {
+      click = true;
+      x2 = mouseX;
+      y2 = mouseY;
+    }
+    if(click){
+      player.move(x2,y2,0.01);
+    }
+  
+  player.show();
+    
+    //button map
     image(btn_map, 69, 502);
   }
 
@@ -88,7 +109,8 @@ class Phase1Page1 extends Input{
     if (mousePressed && mouseX>430 && mouseX<570 && mouseY>410 && mouseY<540) {
       image(mDoHappy, width/2, 470);
     } else {
-      image(mDo, width/2, 470);
+      //image(mDo, width/2, 470);
+      player.animManager = 0;
     }
 
     if (correct) {
