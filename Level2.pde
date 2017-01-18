@@ -25,7 +25,16 @@ class Level2 extends Input {
   }
 
   void events() {
+    //Come back to the map
     if (clickRadial(btn_map, 69, 502))
       PAGE = 3 ;
+      delay(400);
   }
+  
+  void choosePosition(){
+    
+  }
+  
+  
+  
 }
