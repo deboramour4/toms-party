@@ -1,8 +1,8 @@
-class Phase1Page1 extends Input{
+class Level1 extends Input{
   PImage background;
   PImage mDo, mDoHappy;
   PImage btn1Off, btn2Off, btn3Off, btn1On, btn2On, btn3On ;
-  PImage btn_map;
+  PImage btn_map_up, btn_map_down;
 
   int[] buttons = new int[3];
 
@@ -27,7 +27,7 @@ class Phase1Page1 extends Input{
   Glide gainValue;
 
 
-  Phase1Page1() {
+  Level1() {
     background = loadImage("tela1.png");
     //monster
     mDo = loadImage("dó.png");
@@ -36,7 +36,8 @@ class Phase1Page1 extends Input{
     //buttons
     randomPosition(buttons);
   
-    btn_map = loadImage("btn-map.png");
+    btn_map_up = loadImage("map-up.png");
+    btn_map_down = loadImage("map-down.png");
 
     btn1Off = loadImage("btn1Off.png");
     btn2Off = loadImage("btn2Off.png");
@@ -76,19 +77,21 @@ class Phase1Page1 extends Input{
     image(background, width/2, height/2);
     
     //buton map
-    image(btn_map, 69, 502);
+    image(btn_map_up, 69, 502);
   }
 
   void events() {
-    if (clickRadial(btn_map, 69, 502))
+    if (clickRadial(btn_map_up, 69, 502))
       PAGE = 4 ;
-      
+    
+    if(inside(btn_map_up, 69,502))
+      image(btn_map_down, 69, 502);
 
     //monster interaction
-    if (mousePressed && mouseX>430 && mouseX<570 && mouseY>410 && mouseY<540) {
-      image(mDoHappy, width/2, 470);
+    if (mousePressed && mouseX>430 && mouseX<570 && mouseY>380 && mouseY<480) {
+      image(mDoHappy, width/2, 380);
     } else {
-      image(mDo, width/2, 470);
+      image(mDo, width/2, 380);
     }
 
     if (correct) {

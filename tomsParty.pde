@@ -4,27 +4,28 @@ Menu menu; //1
 Party party; //2
 Map map; //3
 Credits credits; //4
-Phase1Page1 phase1; //5
+Level1 level1; //5
 Level2 level2; //6
-PImage cursor;
+PImage mouse,hand;
 
 int PAGE =1;
 
 void setup() {
   size(1000, 563);   //Dimensões proporcionais às de smartphones em geral
   imageMode(CENTER);
-  cursor = loadImage("cursor.png");
+  mouse = loadImage("cursor.png");
+  hand = loadImage("hand.png");
   map = new Map();
   menu = new Menu();
   party = new Party();
-  phase1 = new Phase1Page1();
+  level1 = new Level1();
   credits = new Credits();
   level2 = new Level2();
   fill(0);
 }
 
 void draw() {
-  cursor(cursor, 0, 0);
+  cursor(mouse, 0, 0);
 
 
   switch(PAGE) {
@@ -53,9 +54,9 @@ void draw() {
     break;
 
   case 5:
-    phase1.show();
+    level1.show();
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
-    phase1.events();
+    level1.events();
     break;
 
 

@@ -41,11 +41,12 @@ class Input {
 
   //this function returns true if the mouse was inside a determinated local of the screen
   // and false if not.
-  void inside(PImage image, float x, float y) {
+  boolean inside(PImage image, float x, float y) {
     if (mouseX>x-(image.width/2) && mouseX<x+(image.width/2) && mouseY>y-(image.height/2) && mouseY<y+(image.height/2)) {
-      //return true;
-      cursor(HAND);
-    }
+      return true;
+      // cursor(HAND);
+    } else
+      return false;
   }
 
   //this function returns the new X and y of the dragged image
@@ -74,8 +75,8 @@ class Input {
 
 
   //ROTATE ELEMENTS
-  void rotateIt(PImage image,float x, float y, float angle) {
-    translate(0,0);
+  void rotateIt(PImage image, float x, float y, float angle) {
+    translate(0, 0);
     pushMatrix();
     translate(x, y);
     rotate(angle);
