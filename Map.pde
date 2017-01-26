@@ -4,10 +4,10 @@ class Map extends Input {
   boolean help_click, play_click;
 
   Map() {
-    background = loadImage("map.png");
-    btn_party = loadImage("btn-party.png");
-    btn_help_up= loadImage("help-up.png");
-    btn_help_down = loadImage("help-down.png");
+    background = loadImage("bg/map.png");
+    btn_party = loadImage("button/btn-party.png");
+    btn_help_up= loadImage("button/help-up.png");
+    btn_help_down = loadImage("button/help-down.png");
     help_click = false;
     play_click = false;
   }
@@ -18,34 +18,28 @@ class Map extends Input {
   }
 
   void events() {
-    //INSIDE THE HELP
-    if (inside(btn_help_up, 61, 507))
-      image(btn_help_down, 61, 507);
-  
-  //RETURN TO MENU
-  if (click(btn_party, 930, 43)) {
-    PAGE = 1;
-    delay(400);
-  }
+    //RETURN TO MENU
+    if (click(btn_party, 930, 43)) {
+      PAGE = 1;
+      delay(200);
+    }
 
-  //PRESS PHASE 1 (alan)
-  if (clickRadial(btn_party, 381, 349)) {
-    if (frameCount % 60 <= 40) {
+    //PRESS PARTY
+    if (clickRadial(btn_party, 381, 349)) {
+        PAGE = 2;
+        delay(200);
+    }
+
+    //PRESS DO'S HOUSE
+    if (clickRadial(btn_party, 637, 468)) {
       PAGE = 5;
       delay(400);
     }
-  }
 
-  //LEVEL 2 (débora)
-  if (clickRadial(btn_party, 637, 468)) {
-    PAGE = 6;
-    delay(400);
+    // CREDITS & HELP
+    if (clickRadial(btn_help_up, 61, 507)) {
+      PAGE = 4;
+      delay(400);
+    }
   }
-
-  // CREDITS & HELP
-  if (clickRadial(btn_help_up, 61, 507)) {
-    PAGE = 4;
-    delay(400);
-  }
-}
 }

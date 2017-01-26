@@ -1,175 +1,116 @@
-class Level1 extends Input{
+class Level1 extends Input {
   PImage background;
   PImage mDo, mDoHappy;
-  PImage btn1Off, btn2Off, btn3Off, btn1On, btn2On, btn3On ;
   PImage btn_map_up, btn_map_down;
+  Asset rock1, rock2, arbo1,arbo2, arbo3;
 
-  int[] buttons = new int[3];
+  PImage btn1Off, lock;
 
-  float time = 0.0;
-
-  boolean valido = false;
-  boolean primeira = false;
-  boolean correct = false;
-
-  AudioContext ac;
-  // this will hold the path to our audio file
-  String cNoteFile;
-  String dNoteFile;
-  String eNoteFile;
-  String wrongFile;
-
-  // the SamplePlayer class will play the audio file
-  SamplePlayer sp1;
-  SamplePlayer sp2;
-
-  Gain g;
-  Glide gainValue;
-
+  int page = 0;
 
   Level1() {
-    background = loadImage("tela1.png");
-    //monster
+    background = loadImage("bg/level1.png");
+    btn_map_up = loadImage("button/map-up.png");
+    btn_map_down = loadImage("button/map-down.png");
+    btn1Off = loadImage("button/btn1Off.png");
+    lock = loadImage("lock.png");
+
     mDo = loadImage("dó.png");
     mDoHappy = loadImage("dó2.png");
 
-    //buttons
-    randomPosition(buttons);
-  
-    btn_map_up = loadImage("map-up.png");
-    btn_map_down = loadImage("map-down.png");
+    rock1 = new Asset("asset/rock1.png","asset/rock1Over.png", 210,235);
+    rock2 = new Asset("asset/rock2.png","asset/rock2Over.png", 744,155);
+    arbo1 = new Asset("asset/arbo1.png","asset/arbo1Over.png", 460,174);
+    arbo2 = new Asset("asset/arbo2.png","asset/arbo2Over.png", 817,344);
+    arbo3 = new Asset("asset/arbo3.png","asset/arbo3Over.png", 493,433);
 
-    btn1Off = loadImage("btn1Off.png");
-    btn2Off = loadImage("btn2Off.png");
-    btn3Off = loadImage("btn3Off.png");
-    btn1On = loadImage("btn1On.png");
-    btn2On = loadImage("btn2On.png");
-    btn3On = loadImage("btn3On.png");
 
-    //sound
-    ac = new AudioContext(); 
-    cNoteFile = sketchPath("") +"data/C note.wav";
-    wrongFile = sketchPath("") +"data/wrong.wav";
-    eNoteFile = sketchPath("") +"data/E note.wav";
-    try {
-      sp1 = new SamplePlayer(ac, new Sample(cNoteFile));
-      sp2 = new SamplePlayer(ac, new Sample(wrongFile));
-    }
-    catch(Exception e) {
-      println("Exception while attempting to load sample!");
-      e.printStackTrace(); // print description of the error
-      exit(); // and exit the program
-    }
-    sp1.setKillOnEnd(false);
-    sp2.setKillOnEnd(false);
-
-    gainValue = new Glide(ac, 0.0, 20);
-    g = new Gain(ac, 1, gainValue);
-    g.addInput(sp1); // connect the SamplePlayer to the Gain
-    g.addInput(sp2);
-
-    ac.out.addInput(g); // connect the Gain to the AudioContext
-    ac.start(); // begin audio processing
+    page = 0;
   }
 
 
   void show() {
-    image(background, width/2, height/2);
-    
-    //buton map
-    image(btn_map_up, 69, 502);
+    if (page == 0) {
+      image(background, width/2, height/2);
+      image(btn_map_up, 69, 502);
+      fill(0);
+      image(btn1Off, 250, 250);
+      image(btn1Off, 500, 250);
+      image(btn1Off, 750, 250);
+
+      textSize(72);
+      text(1, 220, 270);
+      text(2, 480, 270);
+      text(3, 730, 270);
+      textSize(10);
+
+      image(lock, 500, 250);
+      image(lock, 750, 250);
+    } else 
+
+    if (page == 1) {
+      image(background, width/2, height/2);
+      image(btn_map_up, 69, 502);
+      //image(mDo, width/2, 380);
+      
+      rock1.run();
+      rock2.run();
+      arbo1.run();
+      arbo2.run();
+      arbo3.run();
+    }
   }
 
   void events() {
-    if (clickRadial(btn_map_up, 69, 502))
-      PAGE = 4 ;
-    
-    if(inside(btn_map_up, 69,502))
-      image(btn_map_down, 69, 502);
+    if (page == 0) {
+      if (click(btn1Off, 250, 250))
+        page = 1;
 
-    //monster interaction
-    if (mousePressed && mouseX>430 && mouseX<570 && mouseY>380 && mouseY<480) {
-      image(mDoHappy, width/2, 380);
+      if (click(btn1Off, 500, 250))
+        PAGE = 6;
+
+      if (click(btn1Off, 750, 250))
+        PAGE = 7;
+
+      if (clickButton(btn_map_up, btn_map_down, 69, 502)) {
+        page = 0;
+        PAGE = 3 ;
+      }
+    }
+
+    if (page == 1) {
+      if (clickButton(btn_map_up, btn_map_down, 69, 502)) {
+        page = 0;
+        PAGE = 3 ;
+      }
+
+      //monster interaction
+      if (click(mDo, width/2, 380)) {
+        image(mDoHappy, width/2, 380);
+      }
+    }
+  }
+}
+
+class Asset extends Input {
+  private PImage asset;
+  private PImage assetOver;
+  private float x, y;
+
+  Asset(String asset, String assetOver, float x, float y ) {
+    this.asset = loadImage(asset);
+    this.assetOver = loadImage(assetOver);
+    this.x = x;
+    this.y = y;
+  }
+  
+  void run(){
+    if(inside(asset, x,y)){
+      image(assetOver,x,y);
     } else {
-      image(mDo, width/2, 380);
+      image(asset,x,y);
     }
-
-    if (correct) {
-      if (millis() > time + 1000.0) {
-        randomPosition(buttons);
-        correct = false;
-      }
-      buttonPosition(buttons);
-    }else{
-      buttonPosition(buttons);
-    }
-  }
-
-  void randomPosition(int[] b) {
-    for (int i = 0; i < b.length; i++) {
-      do {
-        buttons[i] = int(random(1, 4));
-        valido = true;
-        for (int j = 0; j < i; j++)
-          if (b[i] == buttons[j])
-            valido = false;
-      } while (valido == false);   
-      println(b[i]);
-    }
-  }
-
-  void buttonPosition(int[] b) {
-    int i = 0;
-    int pos = 0;
-    for (i = 0; i<b.length; i++) {
-      pos = (i+1)*250;
-      switch (b[i]) {
-      case 1:
-        if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
-          image(btn1On, pos, 111);
-          correct = true;
-          time = millis();
-          
-          sp2.setToEnd();
-
-          gainValue.setValue(0.2);
-          sp1.setToLoopStart();
-          sp1.start(); // play the audio file
-        } else {
-          image(btn1Off, pos, 111);
-        }
-        inside(btn1Off, pos,111);
-        println(pos);
-        break;
-      case 2:
-        if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
-          image(btn2On, pos, 111);
-
-          //sp1.setToEnd();
-
-          gainValue.setValue(0.2);
-          sp2.setToLoopStart();
-          sp2.start(); // play the audio file
-        } else {
-          image(btn2Off, pos, 111);
-        }
-        inside(btn2Off, pos,111);
-        break;
-      case 3:
-        if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
-          image(btn3On, pos, 111);
-
-          //sp1.setToEnd();
-
-          gainValue.setValue(0.2);
-          sp2.setToLoopStart();
-          sp2.start(); // play the audio file
-        } else {
-          image(btn3Off, pos, 111);
-        }
-        inside(btn3Off, pos,111);
-        break;
-      }
-    }
+    
+    //if(click(asset
   }
 }

@@ -2,11 +2,11 @@ class Menu extends Input { //nome da tela
   private PImage background;
   private PImage btn_play_up, btn_play_down, btn_help_up, btn_help_down;
   Menu() {
-    background = loadImage("menu.png");
-    btn_play_up = loadImage("play-up.png");
-    btn_play_down = loadImage("play-down.png");
-    btn_help_up= loadImage("help-up.png");
-    btn_help_down = loadImage("help-down.png");
+    background = loadImage("bg/menu.png");
+    btn_play_up = loadImage("button/play-up.png");
+    btn_play_down = loadImage("button/play-down.png");
+    btn_help_up= loadImage("button/help-up.png");
+    btn_help_down = loadImage("button/help-down.png");
   }
 
   void show() {
@@ -16,18 +16,14 @@ class Menu extends Input { //nome da tela
   }  
 
 
-  void events() {
-    //INSIDE THE HELP
-    if (inside(btn_help_up, 61, 507))
-      image(btn_help_down, 61, 507);
-
-    //INSIDE PLAY
-    if (inside(btn_play_up, 500, 400))
-      image(btn_play_down, 500, 400);
-
+  void events() {    
     //PRESS PLAY
-    if (clickRadial(btn_play_up, 500, 400)) {
-      delay(400);
+    if (clickButton(btn_play_up, btn_play_down, 500, 400)) {
+      PAGE = 2;
+    }
+
+    //PRESS HELP
+    if (clickButton(btn_help_up, btn_help_down, 61, 507)) {
       PAGE = 2;
     }
   }

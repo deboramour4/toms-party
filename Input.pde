@@ -12,6 +12,8 @@ class Input {
   private float newX; // for the drag method
   private float newY; // for the drag method
   private boolean draggedArea = false; //for the drag method
+  
+  private boolean pressed = false, clicked = false;
 
 
   //this function returns true if the mouse was clicked in a determinated local of the screen
@@ -36,6 +38,37 @@ class Input {
     } else {
       return false;
     }
+  }
+
+  // This function check if the button was clicked and returns a boolean
+  boolean clickButton(PImage normalI, PImage pressedI, float x, float y)
+  {
+    //draw the button
+    clicked = false;
+    if (inside(normalI, x, y)) {
+      if (pressed) {
+        image(pressedI, x, y);
+      } else
+      {
+        image(normalI, x, y);
+      }
+    } 
+    else {
+      image(normalI, x, y);
+    }
+
+    // test the click  
+    //Estate machine transitions
+    if (!pressed && mousePressed) {    // pressed transition to = true
+      pressed = true;
+    }
+    if (pressed && !mousePressed) {  // pressed transition to = false
+      pressed = false;   
+      if (inside(normalI, x, y)) {
+        clicked= true;
+      }
+    }
+    return clicked;
   }
 
 
