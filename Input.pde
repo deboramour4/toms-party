@@ -12,6 +12,8 @@ class Input {
   private float newX; // for the drag method
   private float newY; // for the drag method
   private boolean draggedArea = false; //for the drag method
+  
+  private boolean pressed = false, clicked = false;
 
 
   //this function returns true if the mouse was clicked in a determinated local of the screen
@@ -38,14 +40,46 @@ class Input {
     }
   }
 
+  // This function check if the button was clicked and returns a boolean
+  boolean clickButton(PImage normalI, PImage pressedI, float x, float y)
+  {
+    //draw the button
+    clicked = false;
+    if (inside(normalI, x, y)) {
+      if (pressed) {
+        image(pressedI, x, y);
+      } else
+      {
+        image(normalI, x, y);
+      }
+    } 
+    else {
+      image(normalI, x, y);
+    }
+
+    // test the click  
+    //Estate machine transitions
+    if (!pressed && mousePressed) {    // pressed transition to = true
+      pressed = true;
+    }
+    if (pressed && !mousePressed) {  // pressed transition to = false
+      pressed = false;   
+      if (inside(normalI, x, y)) {
+        clicked= true;
+      }
+    }
+    return clicked;
+  }
+
 
   //this function returns true if the mouse was inside a determinated local of the screen
   // and false if not.
-  void inside(PImage image, float x, float y) {
+  boolean inside(PImage image, float x, float y) {
     if (mouseX>x-(image.width/2) && mouseX<x+(image.width/2) && mouseY>y-(image.height/2) && mouseY<y+(image.height/2)) {
-      //return true;
-      cursor(HAND);
-    }
+      return true;
+      // cursor(HAND);
+    } else
+      return false;
   }
 
   //this function returns the new X and y of the dragged image
@@ -74,8 +108,8 @@ class Input {
 
 
   //ROTATE ELEMENTS
-  void rotateIt(PImage image,float x, float y, float angle) {
-    translate(0,0);
+  void rotateIt(PImage image, float x, float y, float angle) {
+    translate(0, 0);
     pushMatrix();
     translate(x, y);
     rotate(angle);
