@@ -30,7 +30,7 @@ class Level2 extends Input{
   Level2() {
     background = loadImage("bg/level2.png");
     //monster
-    mDo = loadImage("dó.png");
+    mDo = loadImage("dó0.png");
     mDoHappy = loadImage("dó2.png");
 
     //buttons

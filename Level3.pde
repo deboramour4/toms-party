@@ -10,7 +10,7 @@ class Level3 extends Input {
 
   Level3() {
     background = loadImage("bg/level3.png");
-    monsterC = loadImage("dó.png");
+    monsterC = loadImage("dó0.png");
     play_note1 = loadImage("play-note1.png");
     play_note2 = loadImage("play-note2.png");
     play_note3 = loadImage("play-note3.png");

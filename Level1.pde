@@ -36,7 +36,7 @@ class Level1 extends Input{
 
   Level1() {
     delay(1000);
-    background = loadImage("tela1.png");
+    background = loadImage("bg/level1.png");
     
     player = new Moves(500, 400,2);
     player.animations[0] = new Animation("dó",1,".png");
@@ -47,14 +47,14 @@ class Level1 extends Input{
     //buttons
     randomPosition(buttons);
   
-    btn_map = loadImage("btn-map.png");
+    btn_map = loadImage("button/btn-map.png");
 
-    btn1Off = loadImage("btn1Off.png");
-    btn2Off = loadImage("btn2Off.png");
-    btn3Off = loadImage("btn3Off.png");
-    btn1On = loadImage("btn1On.png");
-    btn2On = loadImage("btn2On.png");
-    btn3On = loadImage("btn3On.png");
+    btn1Off = loadImage("button/btn1Off.png");
+    btn2Off = loadImage("button/btn2Off.png");
+    btn3Off = loadImage("button/btn3Off.png");
+    btn1On = loadImage("button/btn1On.png");
+    btn2On = loadImage("button/btn2On.png");
+    btn3On = loadImage("button/btn3On.png");
 
     //sound
     ac = new AudioContext(); 
