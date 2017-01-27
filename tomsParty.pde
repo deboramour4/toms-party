@@ -29,7 +29,6 @@ void setup() {
 }
 
 void draw() {
-  cursor(mouse, 0, 0);
 
   switch(PAGE) {
   case 1:
@@ -74,4 +73,9 @@ void draw() {
     level3.events();
     break;
   }
+
+  noCursor();
+  imageMode(CORNER);
+  image(mouse, mouseX, mouseY);
+  imageMode(CENTER);
 }
