@@ -2,7 +2,16 @@ class Level1 extends Input {
   PImage background;
   PImage mDo, mDoHappy;
   Button btn_map, btn_level1, btn_level2, btn_level3;
+  Animation a_rock1, a_rock2, a_arbo1, a_arbo2, a_arbo3;
   Asset rock1, rock2, arbo1, arbo2, arbo3;
+
+  Asset[] assets = new Asset[3];
+  int cont = 0; 
+  float time = 0.0;
+  boolean choose = false;
+  boolean starting = false;
+  boolean ending = false;
+  boolean correct = false;
 
   PImage btn1Off, lock;
 
@@ -18,10 +27,16 @@ class Level1 extends Input {
 
     rock1 = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
     rock2 = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
-    arbo1 = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
-    arbo2 = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344);
-    arbo3 = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433);
-    
+    assets[0] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
+    assets[1] = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344);
+    assets[2] = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433);
+
+    //a_rock1 =new Animation("animation/ass (", 40, ").png", 2);
+    //a_rock2 =new Animation("animation/idle/do_idle (", 40, ").png", 2);
+    //a_arbo1=new Animation("animation/arbo1/moita1_", 13, ".png", 2);
+    //a_arbo2=new Animation("animation/idle/do_idle (", 40, ").png", 2);
+    //a_arbo3 =new Animation("animation/idle/do_idle (", 40, ").png", 2);
+
     page = 1;
   }
 
@@ -29,39 +44,72 @@ class Level1 extends Input {
   void show() {
     //intro
     if (page == 0) {
+      image(background, width/2, height/2);
+      //if ( insideButton(btn_map) || rock1.run() || rock2.run() ||arbo1.run() || arbo2.run() || arbo3.run()) {
+      //  isInside = true;
+      //} else
+      //  isInside = false;
 
+      // a_rock1.display2(210, 235,1);
+      //a_rock2.display2(744, 155,1);
+      a_arbo1.display(460, 174, 2);
+      //a_arbo2.display2(817, 344,1);
+      //a_arbo3.display2(493, 433,1);
     }
-  
+
     //gameplay
     if (page == 1) {
       image(background, width/2, height/2);
-
-      if ( insideButton(btn_map) || rock1.run() || rock2.run() ||arbo1.run() || arbo2.run() || arbo3.run()) {
+      if ( insideButton(btn_map)) {
         isInside = true;
         player.show(5, rock1.x, rock1.y-100, 5) ;
       } else
         isInside = false;
 
+      chooseArbor();
+
       rock1.run();
       rock2.run();
-      arbo1.run();
-      arbo2.run();
-      arbo3.run();
+      assets[0].run();
+      assets[1].run();
+      assets[2].run();
     }
   }
 
   void events() {
     //intro
     if (page == 0) {
-      
-      }
-    
+    }
+
     //gameplay
     if (page == 1) {
+
       if (btn_map.execute()) {
         page = 0;
         PAGE = 4 ;
       }
+
+      for (int i =0; i<3; i++) {
+        if (click(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == true) {
+          choose = false;
+          assets[i].choosen = false;
+          PAGE = 7;
+        } else if (click(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == false) {
+          player.show(4, 500, 300, 3);
+        }
+      }
+    }
+  }
+
+  void intro() {
+  }
+
+  void chooseArbor() {
+    if (!choose) {
+      int i = int(random(3));
+      assets[i].choose();
+      choose = true;
+      println(i);
     }
   }
 }
@@ -70,12 +118,14 @@ class Asset extends Input {
   private PImage asset;
   private PImage assetOver;
   private float x, y;
+  private boolean choosen;
 
   Asset(String asset, String assetOver, float x, float y ) {
     this.asset = loadImage(asset);
     this.assetOver = loadImage(assetOver);
     this.x = x;
     this.y = y;
+    this.choosen = false;
   }
 
   boolean run() {
@@ -86,5 +136,9 @@ class Asset extends Input {
       image(asset, x, y);
       return false;
     }
+  }
+
+  void choose() {
+    this.choosen = true;
   }
 }

@@ -31,9 +31,6 @@ class Menu extends Input { //nome da tela
       PAGE = 2;
     }
 
-
-
-    println(isInside);
   }
 
   // ---- efeitos

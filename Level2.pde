@@ -121,7 +121,7 @@ class Level2 extends Input {
           if (b[i] == buttons[j])
             valido = false;
       } while (valido == false);   
-      println(b[i]);
+      //println(b[i]);
     }
   }
 
@@ -148,7 +148,7 @@ class Level2 extends Input {
           image(btn1Off, pos, 111);
         }
         inside(btn1Off, pos, 111);
-        println(pos);
+       // println(pos);
         break;
       case 2:
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {

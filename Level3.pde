@@ -17,7 +17,6 @@ class Level3 extends Input {
   }
 
   void show() {
-    println(distanceX);
       background(255);
       image(background, width/2, height/2);
       player.show(1,500,300,5);
