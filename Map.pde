@@ -1,45 +1,41 @@
 class Map extends Input {
   private PImage background;
-  private PImage btn_party, btn_help_up, btn_help_down;
-  boolean help_click, play_click;
+  Button btn_party, btn_help, btn_doHouse, btn_menu;
+  boolean play_click;
 
   Map() {
     background = loadImage("bg/map.png");
-    btn_party = loadImage("button/btn-party.png");
-    btn_help_up= loadImage("button/help-up.png");
-    btn_help_down = loadImage("button/help-down.png");
-    help_click = false;
-    play_click = false;
+    btn_party = new Button("button/btn-party.png", "button/btn-party.png", 381, 349 );
+    btn_help = new Button("button/help-up.png", "button/help-down.png", width-(128/2)-16, 134/2+(16));
+    btn_doHouse = new Button("button/help-up.png", "button/help-down.png", 638, 461 );
   }
 
   void show() {
     image(background, width/2, height/2);
-    image(btn_help_up, 61, 507);
+
+    if (insideButton(btn_party) || insideButton(btn_help) || insideButton(btn_doHouse))
+      isInside = true;
+    else
+      isInside = false;
   }
 
   void events() {
     //RETURN TO MENU
-    if (click(btn_party, 930, 43)) {
+    if (btn_help.execute()) {
       PAGE = 1;
       delay(200);
     }
 
     //PRESS PARTY
-    if (clickRadial(btn_party, 381, 349)) {
-        PAGE = 2;
-        delay(200);
+    if (btn_party.execute()) {
+      PAGE = 2;
+      delay(200);
     }
 
     //PRESS DO'S HOUSE
-    if (clickRadial(btn_party, 637, 468)) {
+    if (btn_doHouse.execute()) {
       PAGE = 5;
-      delay(400);
-    }
-
-    // CREDITS & HELP
-    if (clickRadial(btn_help_up, 61, 507)) {
-      PAGE = 4;
-      delay(400);
+      delay(200);
     }
   }
 }

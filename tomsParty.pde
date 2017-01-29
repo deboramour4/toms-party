@@ -1,3 +1,22 @@
+//------------------------------------------------------------------------
+//posições da tela onde devem ficar os botões
+
+//canto superior esquerdo
+//x, y = 128/2+(16),134/2+(16);
+
+////canto superior direito
+//x , y= width-(128/2)-16, 134/2+(16);
+
+////canto inferior esquerdo
+//x ,y = 128/2+(16), height-(134/2)-16;
+
+////canto inferior direito
+//x , y = width-(128/2)-16,height-(134/2)-16;
+
+////canto inferior no meio
+//x,y = width/2,height-(134/2)-16;
+//------------------------------------------------------------------------
+
 import beads.*;
 
 Menu menu; //1
@@ -12,6 +31,11 @@ PImage mouse, hand;
 int PAGE =1;
 
 boolean click = false;
+boolean isInside = false;
+
+// ---------------------------- personagem
+Moves player;
+//-----------------------------
 
 void setup() {
   size(1000, 563);   //Dimensões proporcionais às de smartphones em geral
@@ -25,6 +49,15 @@ void setup() {
   level2 = new Level2();
   level3 = new Level3();
   credits = new Credits();
+
+  // personagem
+  player = new Moves(5);
+  player.animations[0] = new Animation("animation/idle/do_idle (", 40, ").png", 2);
+  player.animations[1] = new Animation("animation/sing/do_sing (", 34, ").png", 2);
+  player.animations[2] = new Animation("animation/happy/do_happy (", 31, ").png", 2);
+  player.animations[3] = new Animation("animation/walk/do_walk (", 30, ").png", 2);
+  player.animations[4] = new Animation("animation/sad/do_sad (", 26, ").png", 2);
+
   fill(0);
 }
 
@@ -76,6 +109,9 @@ void draw() {
 
   noCursor();
   imageMode(CORNER);
-  image(mouse, mouseX, mouseY);
+  if (isInside)
+    image(hand, mouseX, mouseY);
+  else
+    image(mouse, mouseX, mouseY);
   imageMode(CENTER);
 }

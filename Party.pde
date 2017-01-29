@@ -1,23 +1,25 @@
 class Party extends Input {
   private PImage background;
-  private PImage btn_right_up, btn_right_down;
+  Button btn_right;
 
   Party() {
     background = loadImage("bg/party.png");
-    btn_right_up = loadImage("button/right-up.png");
-    btn_right_down = loadImage("button/right-down.png");
+    btn_right = new Button("button/right-up.png", "button/right-down.png", 945, 500);
   }
 
   void show() {
     image(background, width/2, height/2);
-    image(btn_right_up, 945, 500);
-  }
+    if (insideButton(btn_right))
+      isInside = true;
+    else
+      isInside = false;
+}
 
-  void events() {
-    //PRESS NEXT
-    if (clickButton(btn_right_up, btn_right_down, 945, 500)) {
-      PAGE = 3;
-      delay(400);
-    }
+void events() {
+  //PRESS NEXT
+  if (btn_right.execute()) {
+    PAGE = 3;
+    delay(400);
   }
+}
 }

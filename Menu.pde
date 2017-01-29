@@ -1,31 +1,39 @@
 class Menu extends Input { //nome da tela
   private PImage background;
-  private PImage btn_play_up, btn_play_down, btn_help_up, btn_help_down;
+  Button btn_play, btn_help;
+  boolean help_click;
+
   Menu() {
     background = loadImage("bg/menu.png");
-    btn_play_up = loadImage("button/play-up.png");
-    btn_play_down = loadImage("button/play-down.png");
-    btn_help_up= loadImage("button/help-up.png");
-    btn_help_down = loadImage("button/help-down.png");
+    btn_play = new Button("button/play-up.png", "button/play-down.png", width/2, height-(134/2)-16-50);
+    btn_help= new Button("button/help-up.png", "button/help-down.png", width-(128/2)-16, 134/2+(16));
+    help_click = false;
   }
 
   void show() {
     image(background, width/2, height/2);
-    image(btn_play_up, 500, 400);
-    image(btn_help_up, 930, 70);
+
+    if (insideButton(btn_play) || insideButton(btn_help))
+      isInside = true;
+    else
+      isInside = false;
   }  
 
 
-  void events() {    
+  void events() {   
     //PRESS PLAY
-    if (clickButton(btn_play_up, btn_play_down, 500, 400)) {
+    if (btn_play.execute()) {
       PAGE = 2;
     }
 
     //PRESS HELP
-    if (clickButton(btn_help_up, btn_help_down, 930, 70)) {
-      PAGE = 2;
+    if (btn_help.execute()) {
+      PAGE = 4;
     }
+
+
+
+    println(isInside);
   }
 
   // ---- efeitos

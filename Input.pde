@@ -12,9 +12,6 @@ class Input {
   private float newX; // for the drag method
   private float newY; // for the drag method
   private boolean draggedArea = false; //for the drag method
-  
-  private boolean pressed = false, clicked = false;
-
 
   //this function returns true if the mouse was clicked in a determinated local of the screen
   //  the paramethers are: a image button, x and y of the image button
@@ -40,38 +37,6 @@ class Input {
     }
   }
 
-  // This function check if the button was clicked and returns a boolean
-  boolean clickButton(PImage normalI, PImage pressedI, float x, float y)
-  {
-    //draw the button
-    clicked = false;
-    if (inside(normalI, x, y)) {
-      if (pressed) {
-        image(pressedI, x, y);
-      } else
-      {
-        image(normalI, x, y);
-      }
-    } 
-    else {
-      image(normalI, x, y);
-    }
-
-    // test the click  
-    //Estate machine transitions
-    if (!pressed && mousePressed) {    // pressed transition to = true
-      pressed = true;
-    }
-    if (pressed && !mousePressed) {  // pressed transition to = false
-      pressed = false;   
-      if (inside(normalI, x, y)) {
-        clicked= true;
-      }
-    }
-    return clicked;
-  }
-
-
   //this function returns true if the mouse was inside a determinated local of the screen
   // and false if not.
   boolean inside(PImage image, float x, float y) {
@@ -80,6 +45,17 @@ class Input {
       // cursor(HAND);
     } else
       return false;
+  }
+
+
+  //this function returns true if the mouse was inside a determinated local of the screen
+  // and false if not.
+  boolean insideButton(Button button) {
+    mouseDistance = sqrt(((mouseX-button.x)*(mouseX-button.x))+((mouseY-button.y)*(mouseY-button.y)));
+      if (mouseDistance < button.normalI.width/2)
+        return true;
+      else
+        return false;
   }
 
   //this function returns the new X and y of the dragged image
@@ -115,5 +91,50 @@ class Input {
     rotate(angle);
     image(image, 0, 0);
     popMatrix();
+  }
+}
+
+class Button extends Input {
+  private PImage normalI;
+  private PImage pressedI;
+  private float x, y;
+  private boolean pressed = false, clicked = false, inside=false;
+
+  Button(String n, String p, float px, float py) {
+    normalI = loadImage(n);
+    pressedI = loadImage(p);
+    x=px;
+    y=py;
+  }
+
+  // This function check if the button was clicked and returns a boolean
+  boolean execute()
+  {
+    //draw the button
+    clicked = false;
+    if (inside(normalI, x, y)) {
+      if (pressed) {
+        image(pressedI, x, y);
+      } else
+      {
+        image(normalI, x, y);
+      }
+    } else {
+      image(normalI, x, y);
+    }
+
+
+    // test the click  
+    //Estate machine transitions
+    if (!pressed && mousePressed) {    // pressed transition to = true
+      pressed = true;
+    }
+    if (pressed && !mousePressed) {  // pressed transition to = false
+      pressed = false;   
+      if (inside(normalI, x, y)) {
+        clicked= true;
+      }
+    }
+    return clicked;
   }
 }

@@ -9,23 +9,21 @@ class Moves {
   }
 
   //The costructor recieves the object position and the number of spaces in the array of animations 
-  Moves(int posX, int posY, int nAnimations) {
-    x = posX;
-    y = posY;
+  Moves(int nAnimations) {
     animations = new Animation[nAnimations];
   }
 
-  void show() {
+  void show( int animManager,float x, float y, float duration){
     //switching a animation to show
-    //switch(animManager) {
-    //case 0:
-    //  animations[0].display(x, y, 8); //Idle animation
-    //  break;
-    //case 1:
-    //  animations[1].display(x, y, 8); //Walk animation
-    //  break;
-    //}
-   animations[animManager].display(x, y, 8);
+    switch(animManager) {
+    case 0:
+      animations[0].display(x, y, duration); //Idle animation
+      break;
+    case 1:
+      animations[1].display(x, y, duration); //Walk animation
+      break;
+    }
+   animations[animManager].display(x, y, duration);
   }
 
   //Fuction to move the player. Recieves the destination and speed

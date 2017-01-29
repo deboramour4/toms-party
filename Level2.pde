@@ -1,9 +1,9 @@
 class Level2 extends Input {
-  Moves player;
   PImage background;
   PImage mDo, mDoHappy;
   PImage btn1Off, btn2Off, btn3Off, btn1On, btn2On, btn3On ;
-  PImage btn_map_up, btn_map_down;
+  Button btn_map;
+  PImage bar0, bar1, bar2, bar3, bar4, bar5;
 
   int[] buttons = new int[3];
   int cont = 0;
@@ -37,18 +37,10 @@ class Level2 extends Input {
   Level2() {
     delay(1000);
     background = loadImage("bg/level2.png");
-
-    player = new Moves(width/2, 330, 2);
-    player.animations[0] = new Animation("dó", 1, ".png");
-    player.animations[1] = new Animation("sprite", 4, ".png");
-    //player
-    mDoHappy = loadImage("dó2.png");
-
     //buttons
     randomPosition(buttons);
 
-    btn_map_up = loadImage("button/map-up.png");
-    btn_map_down = loadImage("button/map-down.png");
+    btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
 
     btn1Off = loadImage("button/btn1Off.png");
     btn2Off = loadImage("button/btn2Off.png");
@@ -56,6 +48,13 @@ class Level2 extends Input {
     btn1On = loadImage("button/btn1On.png");
     btn2On = loadImage("button/btn2On.png");
     btn3On = loadImage("button/btn3On.png");
+
+    bar0 = loadImage("asset/bar-0.png");
+    bar1 = loadImage("asset/bar-1.png");
+    bar2 = loadImage("asset/bar-2.png");
+    bar3 = loadImage("asset/bar-3.png");
+    bar4 = loadImage("asset/bar-4.png");
+    bar5 = loadImage("asset/bar-5.png");
 
     //sound
     ac = new AudioContext(); 
@@ -86,25 +85,59 @@ class Level2 extends Input {
 
   void show() {
     image(background, width/2, height/2);
+    if (insideButton(btn_map) )
+      isInside = true;
+    else
+      isInside = false;
 
-    player.show();
+    if (mousePressed)
+      player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+    else
+      player.show(3, 500, 290, 3); //witch animation, positon x, position y, velocity;
+
+    switch(cont) {
+    case 0:
+      image(bar0, 950, 280);
+      break;
+
+    case 1:
+      image(bar1, 950, 280);
+      break;
+
+    case 2:
+      image(bar2, 950, 280);
+      break;
+
+    case 3:
+      image(bar3, 950, 280);
+      break;
+
+    case 4:
+      image(bar4, 950, 280);
+      break;
+
+    case 5:
+      image(bar5, 950, 280);
+      break;
+    }
   }
 
   void events() {
     //Come back to the map
-    if (clickButton(btn_map_up, btn_map_down, 69, 502))
+    if (btn_map.execute())
       PAGE = 3 ;
 
 
     //monster interaction
     if (mousePressed && mouseX>430 && mouseX<570 && mouseY>410 && mouseY<540) {
-      image(mDoHappy, width/2, 470);
+      //image(mDoHappy, width/2, 330);
+      player.animManager = 1;
     } else {
       //image(mDo, width/2, 470);
       player.animManager = 0;
     }
 
-    if (correct && cont<4) {
+    if (correct && cont<5) {
       //cont++;
       if (millis() > time + 300.0) {
         cont++;
