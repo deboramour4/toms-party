@@ -19,19 +19,8 @@ class Level2 extends Input {
   float x2 = 0.0;       
   float y2 = 0.0;
 
-  AudioContext ac;
-  // this will hold the path to our audio file
-  String cNoteFile;
-  String dNoteFile;
-  String eNoteFile;
-  String wrongFile;
-
-  // the SamplePlayer class will play the audio file
-  SamplePlayer sp1;
-  SamplePlayer sp2;
-
-  Gain g;
-  Glide gainValue;
+  Sound cNote;
+  Sound wrong;
 
 
   Level2() {
@@ -55,34 +44,12 @@ class Level2 extends Input {
     bar3 = loadImage("asset/bar-3.png");
     bar4 = loadImage("asset/bar-4.png");
     bar5 = loadImage("asset/bar-5.png");
-
+    
     //sound
-    ac = new AudioContext(); 
-    cNoteFile = sketchPath("") +"data/C note.wav";
-    wrongFile = sketchPath("") +"data/wrong.wav";
-    eNoteFile = sketchPath("") +"data/E note.wav";
-    try {
-      sp1 = new SamplePlayer(ac, new Sample(cNoteFile));
-      sp2 = new SamplePlayer(ac, new Sample(wrongFile));
-    }
-    catch(Exception e) {
-      println("Exception while attempting to load sample!");
-      e.printStackTrace(); // print description of the error
-      exit(); // and exit the program
-    }
-    sp1.setKillOnEnd(false);
-    sp2.setKillOnEnd(false);
-
-    gainValue = new Glide(ac, 0.0, 20);
-    g = new Gain(ac, 1, gainValue);
-    g.addInput(sp1); // connect the SamplePlayer to the Gain
-    g.addInput(sp2);
-
-    ac.out.addInput(g); // connect the Gain to the AudioContext
-    ac.start(); // begin audio processing
+    cNote = new Sound("C note.wav",-10,false);
+    wrong = new Sound("wrong.wav",-10,false);
   }
-
-
+//
   void show() {
     image(background, width/2, height/2);
     if (insideButton(btn_map) )
@@ -178,12 +145,13 @@ class Level2 extends Input {
           image(btn1On, pos, 111);
           correct = true;
           time = millis();
+          cNote.playSound();
 
-          sp2.setToEnd();
+          //sp2.setToEnd();
 
-          gainValue.setValue(0.2);
-          sp1.setToLoopStart();
-          sp1.start(); // play the audio file
+          //gainValue.setValue(0.2);
+          //sp1.setToLoopStart();
+          //sp1.start(); // play the audio file
         } else if (!correct) {
           image(btn1Off, pos, 111);
         }
@@ -193,12 +161,12 @@ class Level2 extends Input {
       case 2:
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
           image(btn2On, pos, 111);
-
+          wrong.playSound();
           //sp1.setToEnd();
 
-          gainValue.setValue(0.2);
-          sp2.setToLoopStart();
-          sp2.start(); // play the audio file
+          //gainValue.setValue(0.2);
+          //sp2.setToLoopStart();
+          //sp2.start(); // play the audio file
         } else if (!correct) {
           image(btn2Off, pos, 111);
         }
@@ -207,12 +175,12 @@ class Level2 extends Input {
       case 3:
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186 && !correct) {
           image(btn3On, pos, 111);
-
+          wrong.playSound();
           //sp1.setToEnd();
 
-          gainValue.setValue(0.2);
-          sp2.setToLoopStart();
-          sp2.start(); // play the audio file
+          //gainValue.setValue(0.2);
+          //sp2.setToLoopStart();
+          //sp2.start(); // play the audio file
         } else if (!correct) {
           image(btn3Off, pos, 111);
         }

@@ -17,7 +17,11 @@
 //x,y = width/2,height-(134/2)-16;
 //------------------------------------------------------------------------
 
-import beads.*;
+//import beads.*;
+import ddf.minim.*;
+import ddf.minim.ugens.*;
+
+Minim minim;
 
 Menu menu; //1
 Party party; //2
@@ -42,6 +46,7 @@ void setup() {
   imageMode(CENTER);
   mouse = loadImage("cursor.png");
   hand = loadImage("hand.png");
+  minim = new Minim(this);
   map = new Map();
   menu = new Menu();
   party = new Party();
