@@ -9,7 +9,7 @@ class Moves {
   }
 
   //The costructor recieves the object position and the number of spaces in the array of animations 
-  Moves(int nAnimations) {
+  Moves(int nAnimations ) {
     animations = new Animation[nAnimations];
   }
 

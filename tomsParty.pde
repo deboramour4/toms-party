@@ -62,7 +62,6 @@ void setup() {
 }
 
 void draw() {
-
   switch(PAGE) {
   case 1:
     menu.show();
@@ -106,7 +105,6 @@ void draw() {
     level3.events();
     break;
   }
-
   noCursor();
   imageMode(CORNER);
   if (isInside)
