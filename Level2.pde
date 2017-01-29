@@ -57,10 +57,11 @@ class Level2 extends Input {
     else
       isInside = false;
 
-    if (mousePressed)
-      player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+    if (correct)
+      player.show(2, 500, 290, 3); //witch animation, positon x, position y, velocity;
     else
-      player.show(3, 500, 290, 3); //witch animation, positon x, position y, velocity;
+      player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+      
 
     switch(cont) {
     case 0:
@@ -92,18 +93,9 @@ class Level2 extends Input {
   void events() {
     //Come back to the map
     if (btn_map.execute())
-      PAGE = 3 ;
-
-
-    //monster interaction
-    if (mousePressed && mouseX>430 && mouseX<570 && mouseY>410 && mouseY<540) {
-      //image(mDoHappy, width/2, 330);
-      player.animManager = 1;
-    } else {
-      //image(mDo, width/2, 470);
-      player.animManager = 0;
-    }
-
+      PAGE = 4 ;
+      
+      
     if (correct && cont<5) {
       //cont++;
       if (millis() > time + 300.0) {
@@ -116,7 +108,7 @@ class Level2 extends Input {
       buttonPosition(buttons);
     } else {
       cont = 0;
-      PAGE = 3;
+      PAGE = 4;
     }
   }
 

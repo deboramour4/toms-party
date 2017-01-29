@@ -18,7 +18,7 @@ class Party extends Input {
 void events() {
   //PRESS NEXT
   if (btn_right.execute()) {
-    PAGE = 3;
+    PAGE = 4;
     delay(400);
   }
 }

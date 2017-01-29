@@ -28,7 +28,7 @@ class Map extends Input {
 
     //PRESS PARTY
     if (btn_party.execute()) {
-      PAGE = 2;
+      PAGE = 3;
       delay(200);
     }
 

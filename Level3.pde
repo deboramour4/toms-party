@@ -20,14 +20,13 @@ class Level3 extends Input {
     println(distanceX);
       background(255);
       image(background, width/2, height/2);
-      image(monsterC, 149, 395);
-      player.show(1,500,300,2);
+      player.show(1,500,300,5);
   }
 
   void events() {
     //Come back to the map
     if (btn_map.execute())
-      PAGE = 3 ;
+      PAGE = 4 ;
     
   }
 

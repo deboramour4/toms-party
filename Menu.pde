@@ -23,12 +23,12 @@ class Menu extends Input { //nome da tela
   void events() {   
     //PRESS PLAY
     if (btn_play.execute()) {
-      PAGE = 2;
+      PAGE = 3;
     }
 
     //PRESS HELP
     if (btn_help.execute()) {
-      PAGE = 4;
+      PAGE = 2;
     }
 
 

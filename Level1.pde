@@ -8,72 +8,59 @@ class Level1 extends Input {
 
   int page = 0;
 
+  //sound
+  Sound cNote;
+  Sound wrong;
+
   Level1() {
     background = loadImage("bg/level1.png");
     btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
-    btn_level1 = new Button("button/btn1On.png", "button/btn1On.png", 250, 250);
-    btn_level2 = new Button("button/btn1On.png", "button/btn1On.png", 500, 250);
-    btn_level3 = new Button("button/btn1On.png", "button/btn1On.png", 750, 250);
 
     rock1 = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
     rock2 = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
     arbo1 = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
     arbo2 = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344);
     arbo3 = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433);
-
-
-    page = 0;
+    
+    page = 1;
   }
 
 
   void show() {
+    //intro
     if (page == 0) {
-      image(background, width/2, height/2);
-      fill(0);
 
-      if (insideButton(btn_level1) || insideButton(btn_level2) || insideButton(btn_level3) || insideButton(btn_map))
-        isInside = true;
-      else
-        isInside = false;
     }
-
+  
+    //gameplay
     if (page == 1) {
       image(background, width/2, height/2);
-      //image(mDo, width/2, 380);
+
+      if ( insideButton(btn_map) || rock1.run() || rock2.run() ||arbo1.run() || arbo2.run() || arbo3.run()) {
+        isInside = true;
+        player.show(5, rock1.x, rock1.y-100, 5) ;
+      } else
+        isInside = false;
+
       rock1.run();
       rock2.run();
       arbo1.run();
       arbo2.run();
       arbo3.run();
-
-      if ( insideButton(btn_map) || rock1.run() || rock2.run() ||arbo1.run() || arbo2.run() || arbo3.run())
-        isInside = true;
-      else
-        isInside = false;
     }
   }
 
   void events() {
+    //intro
     if (page == 0) {
-      if (btn_level1.execute())
-        page = 1;
-
-      if (btn_level2.execute())
-        PAGE = 6;
-
-      if (btn_level3.execute())
-        PAGE = 7;
-
-      if (btn_map.execute()) {
-        page = 0;
-        PAGE = 3 ;
+      
       }
-    }
-
+    
+    //gameplay
     if (page == 1) {
       if (btn_map.execute()) {
         page = 0;
-        PAGE = 3 ;
+        PAGE = 4 ;
       }
     }
   }
@@ -99,7 +86,5 @@ class Asset extends Input {
       image(asset, x, y);
       return false;
     }
-
-    //if(click(asset
   }
 }

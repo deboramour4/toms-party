@@ -24,12 +24,13 @@ import ddf.minim.ugens.*;
 Minim minim;
 
 Menu menu; //1
-Party party; //2
-Map map; //3
-Credits credits; //4
-Level1 level1; //5
-Level2 level2; //6
-Level3 level3; //7
+Credits credits; //2
+Party party; //3
+Map map; //4
+CHouse chouse; //5
+Level1 level1; //6
+Level2 level2; //7
+Level3 level3; //8
 PImage mouse, hand;
 
 int PAGE =1;
@@ -50,18 +51,20 @@ void setup() {
   map = new Map();
   menu = new Menu();
   party = new Party();
+  chouse = new CHouse();
   level1 = new Level1();
   level2 = new Level2();
   level3 = new Level3();
   credits = new Credits();
 
   // personagem
-  player = new Moves(5);
+  player = new Moves(6);
   player.animations[0] = new Animation("animation/idle/do_idle (", 40, ").png", 2);
   player.animations[1] = new Animation("animation/sing/do_sing (", 34, ").png", 2);
   player.animations[2] = new Animation("animation/happy/do_happy (", 31, ").png", 2);
   player.animations[3] = new Animation("animation/walk/do_walk (", 30, ").png", 2);
   player.animations[4] = new Animation("animation/sad/do_sad (", 26, ").png", 2);
+  player.animations[5] = new Animation("animation/look/do_look (", 24, ").png", 2);
 
   fill(0);
 }
@@ -74,37 +77,43 @@ void draw() {
     menu.events();
     break;
 
-  case 3:
-    map.show();
-    text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
-    map.events();
-    break;
-
   case 2:
+    credits.show();
+    text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
+    credits.events();
+    break;
+    
+  case 3:
     party.show();
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
     party.events();
     break;
 
   case 4:
-    credits.show();
+    map.show();
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
-    credits.events();
+    map.events();
     break;
 
   case 5:
+    chouse.show();
+    text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
+    chouse.events();
+    break;
+
+  case 6:
     level1.show();
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
     level1.events();
     break;
 
-  case 6:
+  case 7:
     level2.show();
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
     level2.events();
     break;
 
-  case 7:
+  case 8:
     level3.show();
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
     level3.events();
