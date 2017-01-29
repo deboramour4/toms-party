@@ -12,7 +12,7 @@ class Menu extends Input { //nome da tela
   void show() {
     image(background, width/2, height/2);
     image(btn_play_up, 500, 400);
-    image(btn_help_up, 61, 507);
+    image(btn_help_up, 930, 70);
   }  
 
 
@@ -23,7 +23,7 @@ class Menu extends Input { //nome da tela
     }
 
     //PRESS HELP
-    if (clickButton(btn_help_up, btn_help_down, 61, 507)) {
+    if (clickButton(btn_help_up, btn_help_down, 930, 70)) {
       PAGE = 2;
     }
   }
