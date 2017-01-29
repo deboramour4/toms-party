@@ -15,15 +15,15 @@ class Moves {
 
   void show( int animManager,float x, float y, float duration){
     //switching a animation to show
-    switch(animManager) {
-    case 0:
-      animations[0].display(x, y, duration); //Idle animation
-      break;
-    case 1:
-      animations[1].display(x, y, duration); //Walk animation
-      break;
-    }
-   animations[animManager].display(x, y, duration);
+    //switch(animManager) {
+    //case 0:
+    //  animations[0].display2(x, y, duration); //Idle animation
+    //  break;
+    //case 1:
+    //  animations[1].display2(x, y, duration); //Walk animation
+    //  break;
+    //}
+   animations[animManager].display2(x, y, duration);
   }
 
   //Fuction to move the player. Recieves the destination and speed
