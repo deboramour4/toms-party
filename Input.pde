@@ -52,10 +52,19 @@ class Input {
   // and false if not.
   boolean insideButton(Button button) {
     mouseDistance = sqrt(((mouseX-button.x)*(mouseX-button.x))+((mouseY-button.y)*(mouseY-button.y)));
-      if (mouseDistance < button.normalI.width/2)
-        return true;
-      else
-        return false;
+    if (mouseDistance < button.normalI.width/2)
+      return true;
+    else
+      return false;
+  }
+
+  boolean afterXSec(float sec, float instant) {
+    println("frame: "+frameCount/60.0+" | isntatnte: "+instant);
+    if (frameCount/60.0 >= instant+sec) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   //this function returns the new X and y of the dragged image

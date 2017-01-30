@@ -38,6 +38,8 @@ int PAGE =1;
 boolean click = false;
 boolean isInside = false;
 
+
+
 // ---------------------------- personagem
 Moves player;
 //-----------------------------
@@ -70,6 +72,7 @@ void setup() {
 }
 
 void draw() {
+
   switch(PAGE) {
   case 1:
     menu.show();
