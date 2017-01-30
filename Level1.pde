@@ -14,10 +14,11 @@ class Level1 extends Input {
   boolean ending = false;
   boolean correct = false;
 
+  int i=0;
 
   PImage btn1Off, lock;
 
-  int page = 0;
+  int page = 1;
 
   //sound
   Sound cNote;
@@ -42,6 +43,7 @@ class Level1 extends Input {
 
 
   void show() {
+
     //intro
     if (page == 0) {
       image(background, width/2, height/2);
@@ -78,17 +80,6 @@ class Level1 extends Input {
 
     //gameplay
     if (page == 1) {
-      
-      //count time
-      if (time) {
-        instant = frameCount/60.0;
-        time = false;
-      }
-      
-      if(afterXSec(10.0,instant)){
-        PAGE = 8;
-      }
-        
 
       if (btn_map.execute()) {
         page = 1;
@@ -155,6 +146,14 @@ class Asset extends Input {
       image(asset, x, y);
       return false;
     }
+  }
+
+  void focus() {
+    image(assetOver, x, y);
+  }
+
+  void offFocus() {
+    image(asset, x, y);
   }
 
   void choose() {

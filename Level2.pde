@@ -98,13 +98,13 @@ class Level2 extends Input {
     player.moveRight(500, 2);
 
     if (mousePressed && !player.moving) {
-      player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+      player.show(0, 500, 290, 3); //witch animation, positon x, position y, velocity;
     } else if (player.moving) {
       player.show(3, player.x, 290, 3); //witch animation, positon x, position y, velocity;
     } else if (correct && !player.moving) {
       player.show(2, 500, 290, 5);
     } else { 
-      player.show(0, player.x, 290, 3);
+      player.show(6, player.x, 290, 3);
     }
 
     if (correct && !player.moving)
