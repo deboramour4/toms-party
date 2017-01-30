@@ -5,13 +5,15 @@ class Level1 extends Input {
   Animation a_rock1, a_rock2, a_arbo1, a_arbo2, a_arbo3;
   Asset rock1, rock2, arbo1, arbo2, arbo3;
 
-  Asset[] assets = new Asset[3];
+  Asset[] assets = new Asset[5];
   int cont = 0; 
-  float time = 0.0;
+  boolean time = true;
+  float instant;
   boolean choose = false;
   boolean starting = false;
   boolean ending = false;
   boolean correct = false;
+
 
   PImage btn1Off, lock;
 
@@ -26,20 +28,14 @@ class Level1 extends Input {
     btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
     next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2);
 
-    rock1 = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
-    rock2 = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
-    assets[0] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
-    assets[1] = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344);
-    assets[2] = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433);
+    assets[1] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
+    assets[3] = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344);
+    assets[4] = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433);
+    assets[0] = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
+    assets[2] = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
 
     cNote = new Sound("C note.wav", -10, false);
     wrong = new Sound("wrong.wav", -10, false);
-
-    //a_rock1 =new Animation("animation/ass (", 40, ").png", 2);
-    //a_rock2 =new Animation("animation/idle/do_idle (", 40, ").png", 2);
-    //a_arbo1=new Animation("animation/arbo1/moita1_", 13, ".png", 2);
-    //a_arbo2=new Animation("animation/idle/do_idle (", 40, ").png", 2);
-    //a_arbo3 =new Animation("animation/idle/do_idle (", 40, ").png", 2);
 
     page = 1;
   }
@@ -49,16 +45,6 @@ class Level1 extends Input {
     //intro
     if (page == 0) {
       image(background, width/2, height/2);
-      //if ( insideButton(btn_map) || rock1.run() || rock2.run() ||arbo1.run() || arbo2.run() || arbo3.run()) {
-      //  isInside = true;
-      //} else
-      //  isInside = false;
-
-      // a_rock1.display2(210, 235,1);
-      //a_rock2.display2(744, 155,1);
-      a_arbo1.display(460, 174, 2);
-      //a_arbo2.display2(817, 344,1);
-      //a_arbo3.display2(493, 433,1);
     }
 
     //gameplay
@@ -72,11 +58,11 @@ class Level1 extends Input {
 
       chooseArbor();
 
-      rock1.run();
-      rock2.run();
       assets[0].run();
       assets[1].run();
       assets[2].run();
+      assets[3].run();
+      assets[4].run();
 
       if (page ==2) {
         congrats();
@@ -92,13 +78,24 @@ class Level1 extends Input {
 
     //gameplay
     if (page == 1) {
+      
+      //count time
+      if (time) {
+        instant = frameCount/60.0;
+        time = false;
+      }
+      
+      if(afterXSec(10.0,instant)){
+        PAGE = 8;
+      }
+        
 
       if (btn_map.execute()) {
         page = 1;
         PAGE = 4 ;
       }
 
-      for (int i =0; i<3; i++) {
+      for (int i =0; i<5; i++) {
         if (click(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == true) {
           cNote.playSound();
           page = 2;
@@ -116,10 +113,10 @@ class Level1 extends Input {
 
   void chooseArbor() {
     if (!choose) {
-      int i = int(random(3));
+      int i = int(random(5));
       assets[i].choose();
       choose = true;
-      println(i);
+      // println(i);
     }
   }
 
