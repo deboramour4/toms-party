@@ -13,29 +13,39 @@ class Moves {
     animations = new Animation[nAnimations];
   }
 
-  void show( int animManager,float x, float y, float duration){
-   animations[animManager].display2(x, y, duration);
+  void show(int animManager, float x2, float y2, float duration) {
+    //switching a animation to show
+    //switch(animManager) {
+    //case 0:
+    //  animations[0].display2(x, y, duration); //Idle animation
+    //  break;
+    //case 1:
+    //  animations[1].display2(x, y, duration); //Walk animation
+    //  break;
+    //}
+    x = x2;
+    y = y2;
+    animations[animManager].display(x, y, duration);
+  }
+
+  void moveRight(float x2, float speed) {
+    if (x < x2-speed) {
+      moving = true;
+      x += speed;
+      animManager = 4;
+    } else if (x > x2 +speed) {
+      x -= speed;
+    } else {
+      moving = false;
+      animManager = 0;
+    }
+    //show(animManager, x, y,3);
   }
 
   //Fuction to move the player. Recieves the destination and speed
   void move(float x2, float y2, float speed) {
-    float distanciaX;
-    distanciaX = x2-x;
-    float distanciaY;
-    distanciaY = y2-y;
-    x = x+(i*distanciaX);
-    y = y+(i*distanciaY);
-    if (i < 1) { 
-      i = i + speed;
-    } else {
-      click = false;
-      i=0;
-    }
-    //Changing animations
-    if (x != x2) {
-      animManager = 1;
-    } else {
-      animManager = 0;
+    if (x <= x2) {
+      x += speed;
     }
   }
 }
