@@ -82,7 +82,7 @@ void draw() {
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
     credits.events();
     break;
-    
+
   case 3:
     party.show();
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);

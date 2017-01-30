@@ -1,7 +1,7 @@
 class Level1 extends Input {
   PImage background;
   PImage mDo, mDoHappy;
-  Button btn_map, btn_level1, btn_level2, btn_level3;
+  Button btn_map, btn_level1, btn_level2, btn_level3, next_level;
   Animation a_rock1, a_rock2, a_arbo1, a_arbo2, a_arbo3;
   Asset rock1, rock2, arbo1, arbo2, arbo3;
 
@@ -24,12 +24,16 @@ class Level1 extends Input {
   Level1() {
     background = loadImage("bg/level1.png");
     btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
+    next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2);
 
     rock1 = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
     rock2 = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
     assets[0] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
     assets[1] = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344);
     assets[2] = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433);
+
+    cNote = new Sound("C note.wav", -10, false);
+    wrong = new Sound("wrong.wav", -10, false);
 
     //a_rock1 =new Animation("animation/ass (", 40, ").png", 2);
     //a_rock2 =new Animation("animation/idle/do_idle (", 40, ").png", 2);
@@ -58,9 +62,9 @@ class Level1 extends Input {
     }
 
     //gameplay
-    if (page == 1) {
+    if (page == 1 || page ==2) {
       image(background, width/2, height/2);
-      if ( insideButton(btn_map)) {
+      if (insideButton(btn_map)) {
         isInside = true;
         player.show(5, rock1.x, rock1.y-100, 5) ;
       } else
@@ -73,10 +77,15 @@ class Level1 extends Input {
       assets[0].run();
       assets[1].run();
       assets[2].run();
+
+      if (page ==2) {
+        congrats();
+      }
     }
   }
 
   void events() {
+
     //intro
     if (page == 0) {
     }
@@ -85,17 +94,18 @@ class Level1 extends Input {
     if (page == 1) {
 
       if (btn_map.execute()) {
-        page = 0;
+        page = 1;
         PAGE = 4 ;
       }
 
       for (int i =0; i<3; i++) {
         if (click(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == true) {
-          choose = false;
-          assets[i].choosen = false;
-          PAGE = 7;
+          cNote.playSound();
+          page = 2;
+          //PAGE = 7;
         } else if (click(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == false) {
-          player.show(4, 500, 300, 3);
+          wrong.playSound();
+          //player.show(4, 500, 300, 3);
         }
       }
     }
@@ -110,6 +120,18 @@ class Level1 extends Input {
       assets[i].choose();
       choose = true;
       println(i);
+    }
+  }
+
+  void congrats() {
+    fill(0, 150);
+    rect(250, 100, 500, 400);
+    if (next_level.execute()) {
+      choose = false;
+      for (int i =0; i<3; i++) 
+        assets[i].choosen = false;
+      page=1;
+      PAGE = 7;
     }
   }
 }
