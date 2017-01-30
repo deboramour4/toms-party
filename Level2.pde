@@ -44,12 +44,12 @@ class Level2 extends Input {
     bar3 = loadImage("asset/bar-3.png");
     bar4 = loadImage("asset/bar-4.png");
     bar5 = loadImage("asset/bar-5.png");
-    
+
     //sound
-    cNote = new Sound("C note.wav",-10,false);
-    wrong = new Sound("wrong.wav",-10,false);
+    cNote = new Sound("C note.wav", -10, false);
+    wrong = new Sound("wrong.wav", -10, false);
   }
-//
+  //
   void show() {
     image(background, width/2, height/2);
     if (insideButton(btn_map) )
@@ -57,11 +57,11 @@ class Level2 extends Input {
     else
       isInside = false;
 
-    if (correct)
-      player.show(2, 500, 290, 3); //witch animation, positon x, position y, velocity;
-    else
-      player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
-      
+    //if (correct)
+    //  player.show(2, 500, 290, 3); //witch animation, positon x, position y, velocity;
+    //else
+    //  player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+
 
     switch(cont) {
     case 0:
@@ -94,11 +94,27 @@ class Level2 extends Input {
     //Come back to the map
     if (btn_map.execute())
       PAGE = 4 ;
-      
-      
+
+    player.moveRight(500, 2);
+
+    if (mousePressed && !player.moving) {
+      player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+    } else if (player.moving) {
+      player.show(3, player.x, 290, 3); //witch animation, positon x, position y, velocity;
+    } else if (correct && !player.moving) {
+      player.show(2, 500, 290, 5);
+    } else { 
+      player.show(0, player.x, 290, 3);
+    }
+
+    if (correct && !player.moving)
+      player.show(2, 500, 290, 3); //witch animation, positon x, position y, velocity;
+    //else
+    // player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+
     if (correct && cont<5) {
       //cont++;
-      if (millis() > time + 300.0) {
+      if (millis() > time + 1300.0) {
         cont++;
         randomPosition(buttons);
         correct = false;
@@ -148,7 +164,7 @@ class Level2 extends Input {
           image(btn1Off, pos, 111);
         }
         inside(btn1Off, pos, 111);
-       // println(pos);
+        // println(pos);
         break;
       case 2:
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
