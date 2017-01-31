@@ -27,13 +27,13 @@ class Level1 extends Input {
   Level1() {
     background = loadImage("bg/level1.png");
     btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
-    next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2);
-
+    next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2); 
+    
+    assets[0] = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
     assets[1] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
+    assets[2] = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
     assets[3] = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344);
     assets[4] = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433);
-    assets[0] = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
-    assets[2] = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
 
     cNote = new Sound("C note.wav", -10, false);
     wrong = new Sound("wrong.wav", -10, false);
@@ -87,11 +87,11 @@ class Level1 extends Input {
       }
 
       for (int i =0; i<5; i++) {
-        if (click(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == true) {
+        if (clickRadial(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == true) {
           cNote.playSound();
           page = 2;
           //PAGE = 7;
-        } else if (click(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == false) {
+        } else if (clickRadial(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == false) {
           wrong.playSound();
           //player.show(4, 500, 300, 3);
         }
@@ -120,6 +120,7 @@ class Level1 extends Input {
         assets[i].choosen = false;
       page=1;
       PAGE = 7;
+      delay(400);
     }
   }
 }

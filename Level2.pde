@@ -2,7 +2,7 @@ class Level2 extends Input {
   PImage background;
   PImage mDo, mDoHappy;
   PImage btn1Off, btn2Off, btn3Off, btn1On, btn2On, btn3On ;
-  Button btn_map;
+  Button btn_map, next_level;
   PImage bar0, bar1, bar2, bar3, bar4, bar5;
 
   int[] buttons = new int[3];
@@ -15,6 +15,7 @@ class Level2 extends Input {
   boolean ending = false;
   boolean correct = false;
 
+  int page;
 
   float x2 = 0.0;       
   float y2 = 0.0;
@@ -30,6 +31,7 @@ class Level2 extends Input {
     randomPosition(buttons);
 
     btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
+    next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2);
 
     btn1Off = loadImage("button/btn1Off.png");
     btn2Off = loadImage("button/btn2Off.png");
@@ -48,45 +50,47 @@ class Level2 extends Input {
     //sound
     cNote = new Sound("C note.wav", -10, false);
     wrong = new Sound("wrong.wav", -10, false);
+
+    page = 1;
   }
   //
   void show() {
-    image(background, width/2, height/2);
-    if (insideButton(btn_map) )
-      isInside = true;
-    else
-      isInside = false;
+    //gameplay
+    if (page == 1 || page ==2) {
+      image(background, width/2, height/2);
+      if (insideButton(btn_map) )
+        isInside = true;
+      else
+        isInside = false;
 
-    //if (correct)
-    //  player.show(2, 500, 290, 3); //witch animation, positon x, position y, velocity;
-    //else
-    //  player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+      switch(cont) {
+      case 0:
+        image(bar0, 950, 280);
+        break;
 
+      case 1:
+        image(bar1, 950, 280);
+        break;
 
-    switch(cont) {
-    case 0:
-      image(bar0, 950, 280);
-      break;
+      case 2:
+        image(bar2, 950, 280);
+        break;
 
-    case 1:
-      image(bar1, 950, 280);
-      break;
+      case 3:
+        image(bar3, 950, 280);
+        break;
 
-    case 2:
-      image(bar2, 950, 280);
-      break;
+      case 4:
+        image(bar4, 950, 280);
+        break;
 
-    case 3:
-      image(bar3, 950, 280);
-      break;
+      case 5:
+        image(bar5, 950, 280);
+        break;
+      }
 
-    case 4:
-      image(bar4, 950, 280);
-      break;
-
-    case 5:
-      image(bar5, 950, 280);
-      break;
+      if (page ==2) {
+      }
     }
   }
 
@@ -123,8 +127,7 @@ class Level2 extends Input {
     } else if (!correct) {
       buttonPosition(buttons);
     } else {
-      cont = 0;
-      PAGE = 4;
+      congrats();
     }
   }
 
@@ -195,6 +198,18 @@ class Level2 extends Input {
         inside(btn3Off, pos, 111);
         break;
       }
+    }
+  }
+
+  void congrats() {
+    fill(0, 150);
+    rect(250, 100, 500, 400);
+    if (next_level.execute()) {
+      //ZERA OQ TIVER DE SER ZERADO AQUI
+      cont =0;
+      page=1;
+      player.x = -10;
+      PAGE = 8;
     }
   }
 }

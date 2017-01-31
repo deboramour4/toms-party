@@ -15,8 +15,11 @@ class Input {
 
   //this function returns true if the mouse was clicked in a determinated local of the screen
   //  the paramethers are: a image button, x and y of the image button
-  boolean click(PImage image, float x, float y) {
-    if (mousePressed && mouseX>x-(image.width/2) && mouseX<x+(image.width/2) && mouseY>y-(image.height/2) && mouseY<y+(image.height/2)) {
+  boolean click(float x0, float y0, float x, float y) {
+    if (mousePressed && mouseX>x0-x/2 && mouseX<x0+x/2 && mouseY>y0-y/2 && mouseY<y0+y/2) {
+      rect(x0-x/2,y0-y/2
+      
+      ,x,y);
       return true;
     } else {
       return false;
@@ -68,20 +71,20 @@ class Input {
   }
 
   //this function returns the new X and y of the dragged image
-  boolean drag(PImage image, float x, float y ) {
-    if (click(image, x, y) && draggedArea == false) {
-      draggedArea = true;
-    } 
-    if (mousePressed && draggedArea) {
-      newX = mouseX;
-      newY = mouseY;
-      image(image, newX, newY);
-      return true;
-    } else {  
-      draggedArea = false;
-      return false;
-    }
-  }
+  //boolean drag(PImage image, float x, float y ) {
+  //  if (click(image, x, y) && draggedArea == false) {
+  //    draggedArea = true;
+  //  } 
+  //  if (mousePressed && draggedArea) {
+  //    newX = mouseX;
+  //    newY = mouseY;
+  //    image(image, newX, newY);
+  //    return true;
+  //  } else {  
+  //    draggedArea = false;
+  //    return false;
+  //  }
+  //}
 
   //GETS E SETS
   float getNewX() {
