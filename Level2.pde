@@ -26,6 +26,9 @@ class Level2 extends Input {
   Level2() {
     delay(1000);
     background = loadImage("bg/level2.png");
+    
+    starting = true;
+    
     //buttons
     randomPosition(buttons);
 
@@ -96,24 +99,19 @@ class Level2 extends Input {
       PAGE = 4 ;
 
     player.moveRight(500, 2);
-
+    
+    //Conditions and actions for player
     if (mousePressed && !player.moving) {
-      player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
+      player.show(4, 500, 290, 3,false); //witch animation, positon x, position y, velocity;
     } else if (player.moving) {
-      player.show(3, player.x, 290, 3); //witch animation, positon x, position y, velocity;
+      player.show(3, player.x, 290, 3,true); //witch animation, positon x, position y, velocity;
     } else if (correct && !player.moving) {
-      player.show(2, 500, 290, 5);
+      player.show(2, 500, 290, 3,false);
     } else { 
-      player.show(0, player.x, 290, 3);
+      player.show(0, player.x, 290, 3, true);
     }
 
-    if (correct && !player.moving)
-      player.show(2, 500, 290, 3); //witch animation, positon x, position y, velocity;
-    //else
-    // player.show(4, 500, 290, 3); //witch animation, positon x, position y, velocity;
-
     if (correct && cont<5) {
-      //cont++;
       if (millis() > time + 1300.0) {
         cont++;
         randomPosition(buttons);
@@ -124,7 +122,8 @@ class Level2 extends Input {
       buttonPosition(buttons);
     } else {
       cont = 0;
-      PAGE = 4;
+      ending = true;
+      //PAGE = 4;
     }
   }
 
