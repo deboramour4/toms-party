@@ -54,7 +54,7 @@ class Level1 extends Input {
       image(background, width/2, height/2);
       if (insideButton(btn_map)) {
         isInside = true;
-        player.show(5, rock1.x, rock1.y-100, 5) ;
+        player.show(5, rock1.x, rock1.y-100, 5,false) ;
       } else
         isInside = false;
 

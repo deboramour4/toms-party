@@ -3,9 +3,9 @@ class Animation {
   int imageCount;
   int frame = 0;
   int duration;
-  
+
   //Set the prefix of the images, its number and the extencion
-  Animation(String imagePrefix, int count, String extention,int zeros) {
+  Animation(String imagePrefix, int count, String extention, int zeros) {
     imageCount = count;
     images = new PImage[imageCount];
 
@@ -29,7 +29,7 @@ class Animation {
     }
     image(images[frame], xpos, ypos);
   }
-    
+
   int getWidth() {
     return images[0].width;
   }

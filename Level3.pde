@@ -26,10 +26,20 @@ class Level3 extends Input {
   }
 
   void show() {
+<<<<<<< HEAD
     //intro
     if (page == 0) {
       image(background, width/2, height/2);
       if (insideButton(btn_map)) {
+=======
+    println(distanceX);
+      background(255);
+      image(background, width/2, height/2);
+      image(monsterC, 149, 395);
+      player.show(1,500,300,2,true);
+      
+    if (insideButton(btn_map)) {
+>>>>>>> fe5d3c5a09c13cd4e5884a3e27ca1a717d0bc001
         isInside = true;
       } else
         isInside = false;
@@ -38,6 +48,7 @@ class Level3 extends Input {
 
       player.moveRight(100, 2);
 
+<<<<<<< HEAD
       if (mousePressed && !player.moving) {
         player.show(0, player.x, player.y, 3); //witch animation, positon x, position y, velocity;
       } else if (player.moving) {
@@ -45,6 +56,14 @@ class Level3 extends Input {
       } else { 
         player.show(6, player.x, player.y, 3);
       }
+=======
+    if (mousePressed && !player.moving) {
+      player.show(0, player.x, player.y, 3,true); //witch animation, positon x, position y, velocity;
+    } else if (player.moving) {
+      player.show(3, player.x, player.y, 3,true); //witch animation, positon x, position y, velocity;
+    } else { 
+      player.show(6, player.x, player.y, 3,true);
+>>>>>>> fe5d3c5a09c13cd4e5884a3e27ca1a717d0bc001
     }
 
     //gameplay

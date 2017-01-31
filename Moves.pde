@@ -13,19 +13,16 @@ class Moves {
     animations = new Animation[nAnimations];
   }
 
-  void show(int animManager, float x2, float y2, float duration) {
-    //switching a animation to show
-    //switch(animManager) {
-    //case 0:
-    //  animations[0].display2(x, y, duration); //Idle animation
-    //  break;
-    //case 1:
-    //  animations[1].display2(x, y, duration); //Walk animation
-    //  break;
-    //}
+  void show(int animManager, float x2, float y2, float duration, boolean onLoop) {
     x = x2;
     y = y2;
-    animations[animManager].display(x, y, duration);
+    if(onLoop){
+      animations[animManager].display(x, y, duration);
+    }else{
+      animations[animManager].display2(x, y, duration);
+    }
+    
+    
   }
 
   void moveRight(float x2, float speed) {
