@@ -13,7 +13,7 @@ class Level3 extends Input {
     play_note1 = loadImage("play-note1.png");
     play_note2 = loadImage("play-note2.png");
     play_note3 = loadImage("play-note3.png");
-    btn_map = new Button("button/map-up.png","button/map-down.png",128/2+(16), height-(134/2)-16);    
+    btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
   }
 
   void show() {
@@ -22,13 +22,28 @@ class Level3 extends Input {
       image(background, width/2, height/2);
       image(monsterC, 149, 395);
       player.show(1,500,300,2,true);
+      
+    if (insideButton(btn_map)) {
+        isInside = true;
+      } else
+        isInside = false;
+
+    player.y = 200;
+
+    player.moveRight(100, 2);
+
+    if (mousePressed && !player.moving) {
+      player.show(0, player.x, player.y, 3,true); //witch animation, positon x, position y, velocity;
+    } else if (player.moving) {
+      player.show(3, player.x, player.y, 3,true); //witch animation, positon x, position y, velocity;
+    } else { 
+      player.show(6, player.x, player.y, 3,true);
+    }
   }
 
   void events() {
     //Come back to the map
     if (btn_map.execute())
-      PAGE = 3 ;
-    
+      PAGE = 4 ;
   }
-
 }

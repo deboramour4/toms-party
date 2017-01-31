@@ -57,7 +57,7 @@ class Input {
     else
       return false;
   }
-
+  //TRY TO DO SOMETHING AFTER X SECONDS
   boolean afterXSec(float sec, float instant) {
     println("frame: "+frameCount/60.0+" | isntatnte: "+instant);
     if (frameCount/60.0 >= instant+sec) {
