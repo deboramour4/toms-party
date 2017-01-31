@@ -125,13 +125,9 @@ class Level2 extends Input {
     } else if (!correct) {
       buttonPosition(buttons);
     } else {
-<<<<<<< HEAD
       congrats();
-=======
-      cont = 0;
       ending = true;
       //PAGE = 4;
->>>>>>> fe5d3c5a09c13cd4e5884a3e27ca1a717d0bc001
     }
   }
 

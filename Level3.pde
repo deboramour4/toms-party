@@ -5,9 +5,11 @@ class Level3 extends Input {
   private float[] posX = {150, 260, 380, 510, 620, 740, 870};
   private float[] posY = {125, 275, 420};
   private int place=0;
-  private float x, y, distanceX, distanceY;
+  private int x=0, y=0;
   private int page, a = 0;
-  private boolean choose = false;
+  private boolean choose = false;      
+  private float inicio = millis();
+  private float intervalo = 3000; //3 segundos
   Sound cNote;
   Sound wrong;
 
@@ -17,7 +19,7 @@ class Level3 extends Input {
     light = loadImage("asset/light.png");
     btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16); 
     next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2);
-    
+
     //sound
     cNote = new Sound("C note.wav", -10, false);
     wrong = new Sound("wrong.wav", -10, false);
@@ -26,20 +28,10 @@ class Level3 extends Input {
   }
 
   void show() {
-<<<<<<< HEAD
     //intro
     if (page == 0) {
       image(background, width/2, height/2);
       if (insideButton(btn_map)) {
-=======
-    println(distanceX);
-      background(255);
-      image(background, width/2, height/2);
-      image(monsterC, 149, 395);
-      player.show(1,500,300,2,true);
-      
-    if (insideButton(btn_map)) {
->>>>>>> fe5d3c5a09c13cd4e5884a3e27ca1a717d0bc001
         isInside = true;
       } else
         isInside = false;
@@ -48,22 +40,21 @@ class Level3 extends Input {
 
       player.moveRight(100, 2);
 
-<<<<<<< HEAD
-      if (mousePressed && !player.moving) {
-        player.show(0, player.x, player.y, 3); //witch animation, positon x, position y, velocity;
-      } else if (player.moving) {
-        player.show(3, player.x, player.y, 3); //witch animation, positon x, position y, velocity;
-      } else { 
-        player.show(6, player.x, player.y, 3);
+      if (!player.moving) 
+        player.show(6, player.x, player.y, 3, true); //witch animation, positon x, position y, velocity;
+      else 
+      player.show(3, player.x, player.y, 3, true); //witch animation, positon x, position y, velocity;
+
+      //PLAY BY ITSELF -----------------------------
+      println(y);
+      if (millis()>inicio+intervalo) {
+        image(light, posX[x], posY[y]);
+        println("É PRA DESENHAR AQUI");
+        if (millis()>inicio+intervalo+intervalo) {
+          y++;
+          inicio = millis();
+        }
       }
-=======
-    if (mousePressed && !player.moving) {
-      player.show(0, player.x, player.y, 3,true); //witch animation, positon x, position y, velocity;
-    } else if (player.moving) {
-      player.show(3, player.x, player.y, 3,true); //witch animation, positon x, position y, velocity;
-    } else { 
-      player.show(6, player.x, player.y, 3,true);
->>>>>>> fe5d3c5a09c13cd4e5884a3e27ca1a717d0bc001
     }
 
     //gameplay
@@ -78,22 +69,22 @@ class Level3 extends Input {
       player.y = 200;
 
       if (mousePressed && !player.moving) {
-        player.show(0, player.x, player.y, 3); //witch animation, positon x, position y, velocity;
+        player.show(0, player.x, player.y, 3, false); //witch animation, positon x, position y, velocity;
       } else if (player.moving) {
-        player.show(3, player.x, player.y, 3); //witch animation, positon x, position y, velocity;
+        player.show(3, player.x, player.y, 3, false); //witch animation, positon x, position y, velocity;
       } else { 
-        player.show(6, player.x, player.y, 3);
+        player.show(6, player.x, player.y, 3, false);
       }
     }
   }
+
+
   void events() {
     //intro
     if (page ==0) {
       //Come back to the map
       if (btn_map.execute())
         PAGE = 4 ;
-        
-        
     }
 
     //gameplay
@@ -111,11 +102,11 @@ class Level3 extends Input {
             cNote.playSound();
             choose = false;
             a++;
-          } else{
+          } else {
             wrong.playSound();
             println("b : "+b+" | place : "+place+" | ERRADO | linha: "+a);
           }
-        } else if(a>6){
+        } else if (a>6) {
           congrats();
         }
       }
@@ -129,7 +120,7 @@ class Level3 extends Input {
       println(place);
     }
   }
-  
+
   void congrats() {
     fill(0, 150);
     rect(250, 100, 500, 400);
