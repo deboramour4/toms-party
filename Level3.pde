@@ -1,20 +1,28 @@
 class Level3 extends Input {
   private PImage background;
   private PImage monsterC, light ;
-  private Button btn_map;
+  private Button btn_map, next_level;
   private float[] posX = {150, 260, 380, 510, 620, 740, 870};
   private float[] posY = {125, 275, 420};
   private int place=0;
   private float x, y, distanceX, distanceY;
   private int page, a = 0;
   private boolean choose = false;
+  Sound cNote;
+  Sound wrong;
 
   Level3() {
     background = loadImage("bg/level3.png");
     monsterC = loadImage("dó0.png");
     light = loadImage("asset/light.png");
-    btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);  
-    page=1;
+    btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16); 
+    next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2);
+    
+    //sound
+    cNote = new Sound("C note.wav", -10, false);
+    wrong = new Sound("wrong.wav", -10, false);
+
+    page=0;
   }
 
   void show() {
@@ -60,13 +68,16 @@ class Level3 extends Input {
     }
   }
   void events() {
+    //intro
     if (page ==0) {
       //Come back to the map
       if (btn_map.execute())
         PAGE = 4 ;
+        
+        
     }
 
-
+    //gameplay
     if (page ==1) {
       //Come back to the map
       if (btn_map.execute())
@@ -74,14 +85,19 @@ class Level3 extends Input {
 
       //click in the lawn
       for (int b = 0; b < 3; b++) { 
-        if (click(posX[a], posY[b], 105, 150)) {
+        if (a<7 && click(posX[a], posY[b], 105, 150) ) {
           if (place == b) {
-            println("b : "+b+" | place : "+place+" | ACHOU");
+            println("b : "+b+" | place : "+place+" | ACHOU | linha: "+a);
             //player.moveRight(105, 3);
+            cNote.playSound();
             choose = false;
             a++;
-          } else
-            println("b : "+b+" | place : "+place+" | ERRADO");
+          } else{
+            wrong.playSound();
+            println("b : "+b+" | place : "+place+" | ERRADO | linha: "+a);
+          }
+        } else if(a>6){
+          congrats();
         }
       }
     }
@@ -92,6 +108,19 @@ class Level3 extends Input {
       place = int(random(3));
       choose = true;
       println(place);
+    }
+  }
+  
+  void congrats() {
+    fill(0, 150);
+    rect(250, 100, 500, 400);
+    if (next_level.execute()) {
+      //ZERA OQ TIVER DE SER ZERADO AQUI
+      choose=false;
+      a=0;
+      page=1;
+      player.x = -10;
+      PAGE = 4;
     }
   }
 }
