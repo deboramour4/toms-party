@@ -1,8 +1,9 @@
 class Moves {
   float x = 0, y = 0;      
   float speed, i;          
-  boolean moving = false;
+  boolean moving = false, sing = false;
   int animManager = 0;
+  Sound cNote;
   Animation[] animations;
 
   Moves() {
@@ -11,6 +12,7 @@ class Moves {
   //The costructor recieves the object position and the number of spaces in the array of animations 
   Moves(int nAnimations ) {
     animations = new Animation[nAnimations];
+    cNote = new Sound("C note.wav", -10, false);
   }
 
   void show(int animManager, float x2, float y2, float duration, boolean onLoop) {

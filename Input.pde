@@ -50,6 +50,12 @@ class Input {
       return false;
   }
 
+  boolean click(PImage image, float x, float y) {
+    if (mousePressed && mouseX>x-(image.width/2) && mouseX<x+(image.width/2) && mouseY>y-(image.height/2) && mouseY<y+(image.height/2)) {
+      return true;
+    } else
+      return false;
+  }
 
   //this function returns true if the mouse was inside a determinated local of the screen
   // and false if not.

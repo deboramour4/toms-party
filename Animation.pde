@@ -30,13 +30,10 @@ class Animation {
       animRunning = true;
       if ( frameCount % duration == 0 ) {
         frame = (frame+1);
-        println("frame:"+frame+", imageCount:"+imageCount);
       }
     } else {
       animRunning = false;
     }
-
-    println("animação" + animRunning);
     image(images[frame], xpos, ypos);
   }
 

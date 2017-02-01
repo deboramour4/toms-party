@@ -19,6 +19,8 @@ class Level2 extends Input {
 
   float x2 = 0.0;       
   float y2 = 0.0;
+  
+  Moves balloon1,balloon2,balloon3;
 
   Sound cNote;
   Sound wrong;
@@ -49,6 +51,16 @@ class Level2 extends Input {
     bar3 = loadImage("asset/bar-3.png");
     bar4 = loadImage("asset/bar-4.png");
     bar5 = loadImage("asset/bar-5.png");
+    
+    balloon1 = new Moves(3);
+    balloon1.animations[0] = new Animation("asset/balloon", 1, ".png", 2);
+    balloon1.animations[1] = new Animation("animation/balloon/corneta (", 25, ").png", 2);
+    
+    balloon2 = new Moves(3);
+    balloon2.animations[0] = new Animation("asset/balloon", 1, ".png", 2);
+    
+    balloon3 = new Moves(3);
+    balloon3.animations[0] = new Animation("asset/balloon", 1, ".png", 2);
 
     //sound
     cNote = new Sound("C note.wav", -10, false);
@@ -102,7 +114,9 @@ class Level2 extends Input {
     if (btn_map.execute())
       PAGE = 4 ;
 
-    player.moveRight(500, 2);
+    player.moveRight(500, 4);
+    
+    println("correct : "+correct);
     
     //Conditions and actions for player
     if (mousePressed && !player.moving) {
@@ -158,20 +172,20 @@ class Level2 extends Input {
       pos = (i+1)*250;
       switch (b[i]) {
       case 1:
-        if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186 && !correct) {
+        if ( !correct && mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
           image(btn1On, pos, 111);
           correct = true;
           time = millis();
           cNote.playSound();
 
-          //sp2.setToEnd();
-
-          //gainValue.setValue(0.2);
-          //sp1.setToLoopStart();
-          //sp1.start(); // play the audio file
         } else if (!correct) {
-          image(btn1Off, pos, 111);
-        }
+          //image(btn1Off, pos, 111);
+          balloon1.show(0,pos,111,2,true);  
+      }
+      
+      if(correct){
+        balloon1.show(1,pos,111,2,false);  
+      }
         inside(btn1Off, pos, 111);
         // println(pos);
         break;
@@ -179,13 +193,10 @@ class Level2 extends Input {
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
           image(btn2On, pos, 111);
           wrong.playSound();
-          //sp1.setToEnd();
-
-          //gainValue.setValue(0.2);
-          //sp2.setToLoopStart();
-          //sp2.start(); // play the audio file
+          
         } else if (!correct) {
-          image(btn2Off, pos, 111);
+          //image(btn2Off, pos, 111);
+          balloon2.show(0,pos,111,2,true); 
         }
         inside(btn2Off, pos, 111);
         break;
@@ -193,13 +204,10 @@ class Level2 extends Input {
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186 && !correct) {
           image(btn3On, pos, 111);
           wrong.playSound();
-          //sp1.setToEnd();
 
-          //gainValue.setValue(0.2);
-          //sp2.setToLoopStart();
-          //sp2.start(); // play the audio file
         } else if (!correct) {
-          image(btn3Off, pos, 111);
+          //image(btn3Off, pos, 111);
+          balloon3.show(0,pos,111,2,true); 
         }
         inside(btn3Off, pos, 111);
         break;

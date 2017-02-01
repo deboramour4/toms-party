@@ -18,7 +18,11 @@ class Level1 extends Input {
 
   PImage btn1Off, lock;
 
-  int page = 1;
+  int page = 0;
+  
+  float inicio = millis();
+  float intervalo = 3000;
+  int y = -1;
 
   //sound
   Sound cNote;
@@ -38,7 +42,7 @@ class Level1 extends Input {
     cNote = new Sound("C note.wav", -10, false);
     wrong = new Sound("wrong.wav", -10, false);
 
-    page = 1;
+    page = 0;
   }
 
 
@@ -47,6 +51,21 @@ class Level1 extends Input {
     //intro
     if (page == 0) {
       image(background, width/2, height/2);
+      //Zé----------------------
+      for (int i=0;i<=4;i++){
+        if(i==y)
+          assets[i].run2();
+        else 
+          assets[i].run3();
+      }
+      if (millis()>inicio+intervalo){
+        cNote.playSound(); 
+        y++;
+        inicio = millis();
+      }
+      if (y==5)
+        page=1;
+      //Zé----------------------
     }
 
     //gameplay
@@ -54,7 +73,7 @@ class Level1 extends Input {
       image(background, width/2, height/2);
       if (insideButton(btn_map)) {
         isInside = true;
-        player.show(5, rock1.x, rock1.y-100, 5,false) ;
+        //player.show(5, rock1.x, rock1.y-100, 5,false) ;
       } else
         isInside = false;
 
@@ -136,6 +155,8 @@ class Asset extends Input {
     this.assetOver = loadImage(assetOver);
     this.x = x;
     this.y = y;
+    println("X asset = "+x);
+    println("Y asset = "+y);
     this.choosen = false;
   }
 
@@ -147,6 +168,12 @@ class Asset extends Input {
       image(asset, x, y);
       return false;
     }
+  }
+  void run2(){
+    image(assetOver,x,y);
+  }
+  void run3(){
+    image(asset,x,y);
   }
 
   void focus() {
