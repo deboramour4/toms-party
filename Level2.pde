@@ -106,17 +106,23 @@ class Level2 extends Input {
     
     //Conditions and actions for player
     if (mousePressed && !player.moving) {
-      player.show(0, 500, 290, 3,false); //witch animation, positon x, position y, velocity;
+      player.show(4, 500, 290, 3, false); //witch animation, positon x, position y, velocity;
+      if(player.animations[2].animRunning == false){
+      player.animations[2].frame = 0;
+      }
     } else if (player.moving) {
-      player.show(3, player.x, 290, 3,true); //witch animation, positon x, position y, velocity;
+      player.show(3, player.x, 290, 3, true); //witch animation, positon x, position y, velocity;
     } else if (correct && !player.moving) {
-      player.show(2, 500, 290, 3,false);
+      player.show(2, 500, 290, 3, false);
+      if(player.animations[2].animRunning == false){
+      player.animations[2].frame = 0;
+      }
     } else { 
-      player.show(6, player.x, 290, 3, true);
+      player.show(0, player.x, 290, 3, true);
     }
 
     if (correct && cont<5) {
-      if (millis() > time + 1300.0) {
+      if (millis() > time + 1500.0) {
         cont++;
         randomPosition(buttons);
         correct = false;
