@@ -18,6 +18,8 @@ class Party extends Input {
 void events() {
   //PRESS NEXT
   if (btn_right.execute()) {
+    sParty.stopSound();
+    sMap.playSound();
     PAGE = 4;
     delay(400);
   }

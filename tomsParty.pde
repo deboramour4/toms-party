@@ -39,7 +39,12 @@ int PAGE =1;
 boolean click = false;
 boolean isInside = false;
 
-
+//--- sounds
+Sound menu_music;//music of menu
+Sound sParty; //click in the party at menu
+Sound cHouse; //intro of the do House
+Sound sMap; // intro of the map
+// --- sounds
 
 // ---------------------------- personagem
 Moves player;

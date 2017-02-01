@@ -27,5 +27,14 @@ class Sound {
   void playSound() {
     sound.play();
     sound.rewind();
-   }
+  }
+
+  void stopSound() {
+    //sound.mute();
+    sound.pause();
+  }
+
+  void volume(float vol) {
+    sound.setGain(vol);
+  }
 }

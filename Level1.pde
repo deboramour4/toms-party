@@ -19,7 +19,7 @@ class Level1 extends Input {
   PImage btn1Off, lock;
 
   int page = 0;
-  
+
   float inicio = millis();
   float intervalo = 3000;
   int y = -1;
@@ -32,7 +32,7 @@ class Level1 extends Input {
     background = loadImage("bg/level1.png");
     btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
     next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2); 
-    
+
     assets[0] = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
     assets[1] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
     assets[2] = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
@@ -52,13 +52,13 @@ class Level1 extends Input {
     if (page == 0) {
       image(background, width/2, height/2);
       //Zé----------------------
-      for (int i=0;i<=4;i++){
-        if(i==y)
+      for (int i=0; i<=4; i++) {
+        if (i==y)
           assets[i].run2();
         else 
-          assets[i].run3();
+        assets[i].run3();
       }
-      if (millis()>inicio+intervalo){
+      if (millis()>inicio+intervalo) {
         cNote.playSound(); 
         y++;
         inicio = millis();
@@ -95,13 +95,21 @@ class Level1 extends Input {
 
     //intro
     if (page == 0) {
+      if (btn_map.execute()) {
+        sMap.playSound();
+        page = 0;
+        PAGE = 4 ;
+      }
+      
+      
     }
 
     //gameplay
     if (page == 1) {
 
       if (btn_map.execute()) {
-        page = 1;
+        sMap.playSound();
+        page = 0;
         PAGE = 4 ;
       }
 
@@ -169,11 +177,11 @@ class Asset extends Input {
       return false;
     }
   }
-  void run2(){
-    image(assetOver,x,y);
+  void run2() {
+    image(assetOver, x, y);
   }
-  void run3(){
-    image(asset,x,y);
+  void run3() {
+    image(asset, x, y);
   }
 
   void focus() {

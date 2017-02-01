@@ -111,8 +111,10 @@ class Level2 extends Input {
 
   void events() {
     //Come back to the map
-    if (btn_map.execute())
+    if (btn_map.execute()){
+      sMap.playSound();
       PAGE = 4 ;
+    }
 
     player.moveRight(500, 4);
     

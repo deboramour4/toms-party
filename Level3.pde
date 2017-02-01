@@ -106,6 +106,7 @@ class Level3 extends Input {
     if (page ==0) {
       //Come back to the map
       if (btn_map.execute()) {
+        sMap.playSound();
         choose=false;
         a=0;
         x=0;
@@ -120,6 +121,7 @@ class Level3 extends Input {
     if (page ==1) {
       //Come back to the map
       if (btn_map.execute() ) {
+        sMap.playSound();
         choose=false;
         a=0;
         x=0;
