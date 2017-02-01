@@ -5,7 +5,7 @@ class Level3 extends Input {
   private float[] posX = {150, 260, 380, 510, 620, 740, 870};
   private float[] posY = {125, 275, 420};
   private int place=0;
-  private int x=0, y=0;
+  private int x=0, y=-1;
   private int page, a = 0;
   private boolean choose = false;      
   private float inicio = millis();
@@ -45,15 +45,19 @@ class Level3 extends Input {
       else 
       player.show(3, player.x, player.y, 3, true); //witch animation, positon x, position y, velocity;
 
+      //Choose the right note
+      chooseLawn();
+
       //PLAY BY ITSELF -----------------------------
-      println(y);
-      if (millis()>inicio+intervalo) {
+      if (x<7 && (millis()>inicio+intervalo || y==-1)) {
+        y++;
+        inicio = millis();
+      } else if (x<7 && y<3) {
         image(light, posX[x], posY[y]);
-        println("É PRA DESENHAR AQUI");
-        if (millis()>inicio+intervalo+intervalo) {
-          y++;
-          inicio = millis();
-        }
+        //if(place == y) cNote.playSound(); 
+        //else wrong.playSound();
+      } else {
+        page =1;
       }
     }
 
@@ -65,7 +69,6 @@ class Level3 extends Input {
       } else
         isInside = false;
 
-      chooseLawn();
       player.y = 200;
 
       if (mousePressed && !player.moving) {
@@ -83,15 +86,29 @@ class Level3 extends Input {
     //intro
     if (page ==0) {
       //Come back to the map
-      if (btn_map.execute())
+      if (btn_map.execute()) {
+        choose=false;
+        a=0;
+        x=0;
+        y=-1;
+        player.x = -10;
+        page=0;
         PAGE = 4 ;
+      }
     }
 
     //gameplay
     if (page ==1) {
       //Come back to the map
-      if (btn_map.execute())
+      if (btn_map.execute() ){
+        choose=false;
+        a=0;
+        x=0;
+        y=-1;
+        player.x = -10;
+        page=0;
         PAGE = 4 ;
+      }
 
       //click in the lawn
       for (int b = 0; b < 3; b++) { 
@@ -101,7 +118,10 @@ class Level3 extends Input {
             //player.moveRight(105, 3);
             cNote.playSound();
             choose = false;
-            a++;
+            a++; // next col
+            x++; // next col
+            y =-1; // back to the 1st row
+            page = 0; // play again
           } else {
             wrong.playSound();
             println("b : "+b+" | place : "+place+" | ERRADO | linha: "+a);
@@ -117,7 +137,7 @@ class Level3 extends Input {
     if (!choose) {
       place = int(random(3));
       choose = true;
-      println(place);
+      println("RIGHT PLACE : "+place);
     }
   }
 
@@ -128,8 +148,10 @@ class Level3 extends Input {
       //ZERA OQ TIVER DE SER ZERADO AQUI
       choose=false;
       a=0;
-      page=1;
+      x=0;
+      y=-1;
       player.x = -10;
+      page=0;
       PAGE = 4;
     }
   }
