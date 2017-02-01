@@ -51,6 +51,11 @@ class Moves {
     //show(animManager, x, y,3);
   }
 
+  void moveAnywhere(float x2, float y2, float speed) {
+    moveRight(x2, speed);
+    moveUpDown(y2, speed);
+  }
+
   //Fuction to move the player. Recieves the destination and speed
   void move(float x2, float y2, float speed) {
     if (x <= x2) {
