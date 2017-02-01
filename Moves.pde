@@ -16,13 +16,11 @@ class Moves {
   void show(int animManager, float x2, float y2, float duration, boolean onLoop) {
     x = x2;
     y = y2;
-    if(onLoop){
+    if (onLoop) {
       animations[animManager].display(x, y, duration);
-    }else{
+    } else {
       animations[animManager].display2(x, y, duration);
     }
-    
-    
   }
 
   void moveRight(float x2, float speed) {
@@ -32,6 +30,20 @@ class Moves {
       animManager = 4;
     } else if (x > x2 +speed) {
       x -= speed;
+    } else {
+      moving = false;
+      animManager = 0;
+    }
+    //show(animManager, x, y,3);
+  }
+
+  void moveUpDown(float y2, float speed) {
+    if (y < y2-speed) {
+      moving = true;
+      y += speed;
+      animManager = 4;
+    } else if (y > y2 +speed) {
+      y -= speed;
     } else {
       moving = false;
       animManager = 0;
