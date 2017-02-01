@@ -26,6 +26,7 @@ class Menu extends Input { //nome da tela
     //PRESS PLAY
     if (btn_play.execute()) {
       menu_music.volume(-10);
+      sCutscene.playSound();
       PAGE = 3;
     }
 

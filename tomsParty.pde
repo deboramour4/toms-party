@@ -44,6 +44,7 @@ Sound menu_music;//music of menu
 Sound sParty; //click in the party at menu
 Sound cHouse; //intro of the do House
 Sound sMap; // intro of the map
+Sound sCutscene; // sound of the cutscene
 // --- sounds
 
 // ---------------------------- personagem
