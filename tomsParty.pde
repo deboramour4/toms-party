@@ -1,4 +1,5 @@
 //------------------------------------------------------------------------
+//CERTO
 //posições da tela onde devem ficar os botões
 
 //canto superior esquerdo
