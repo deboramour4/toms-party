@@ -2,12 +2,12 @@ class Level3 extends Input {
   private PImage background;
   private PImage monsterC, light ;
   private Button btn_map, next_level;
-  private float[] posX = {150, 260, 380, 510, 620, 740, 870};
+  private float[] posX = {150, 260, 380, 510, 620, 740, 870,950};
   private float[] posY = {125, 275, 420};
   private int place=0;
   private int x=0, y=-1;
   private int page, a = 0;
-  private boolean choose = false;      
+  private boolean choose = false, play=false;      
   private float inicio = millis();
   private float intervalo = 3000; //3 segundos
   Sound cNote;
@@ -38,7 +38,8 @@ class Level3 extends Input {
 
       player.y = 200;
 
-      player.moveRight(100, 2);
+      if(a<8)
+      player.moveRight(posX[a]-105, 2);
 
       if (!player.moving) 
         player.show(6, player.x, player.y, 3, true); //witch animation, positon x, position y, velocity;
@@ -48,16 +49,25 @@ class Level3 extends Input {
       //Choose the right note
       chooseLawn();
 
+
       //PLAY BY ITSELF -----------------------------
-      if (x<7 && (millis()>inicio+intervalo || y==-1)) {
-        y++;
-        inicio = millis();
-      } else if (x<7 && y<3) {
-        image(light, posX[x], posY[y]);
-        //if(place == y) cNote.playSound(); 
-        //else wrong.playSound();
-      } else {
-        page =1;
+      if (!player.moving) { //if it stop moving
+        if (x<7 && (millis()>inicio+intervalo || y==-1)) {
+          y++;
+          inicio = millis();
+          play = true;
+        } else if (x<7 && y<3) {
+          image(light, posX[x], posY[y]);
+          if (place == y && play) { 
+            cNote.playSound(); 
+            play = false;
+          } else if (play) {
+            wrong.playSound();
+            play = false;
+          }
+        } else {
+          page =1;
+        }
       }
     }
 
@@ -71,11 +81,14 @@ class Level3 extends Input {
 
       player.y = 200;
 
-      if (mousePressed && !player.moving) {
-        player.show(0, player.x, player.y, 3, false); //witch animation, positon x, position y, velocity;
-      } else if (player.moving) {
+      if(a<8)
+      player.moveRight(posX[a]-105, 3);
+
+      if (player.moving) {
         player.show(3, player.x, player.y, 3, false); //witch animation, positon x, position y, velocity;
-      } else { 
+      } //else if (player.sing) {
+        //player.show(1, player.x, player.y, 3, false); //witch animation, positon x, position y, velocity;}
+        else { 
         player.show(6, player.x, player.y, 3, false);
       }
     }
@@ -100,7 +113,7 @@ class Level3 extends Input {
     //gameplay
     if (page ==1) {
       //Come back to the map
-      if (btn_map.execute() ){
+      if (btn_map.execute() ) {
         choose=false;
         a=0;
         x=0;
@@ -112,10 +125,9 @@ class Level3 extends Input {
 
       //click in the lawn
       for (int b = 0; b < 3; b++) { 
-        if (a<7 && click(posX[a], posY[b], 105, 150) ) {
+        if (a<8 && click(posX[a], posY[b], 105, 150) ) {
           if (place == b) {
             println("b : "+b+" | place : "+place+" | ACHOU | linha: "+a);
-            //player.moveRight(105, 3);
             cNote.playSound();
             choose = false;
             a++; // next col
@@ -127,6 +139,7 @@ class Level3 extends Input {
             println("b : "+b+" | place : "+place+" | ERRADO | linha: "+a);
           }
         } else if (a>6) {
+          player.show(2, player.x, player.y, 3, false);
           congrats();
         }
       }
