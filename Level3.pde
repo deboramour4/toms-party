@@ -89,7 +89,7 @@ class Level3 extends Input {
       } //else if (player.sing) {
         //player.show(1, player.x, player.y, 3, false); //witch animation, positon x, position y, velocity;}
         else { 
-        player.show(6, player.x, player.y, 3, false);
+        player.show(0, player.x, player.y, 3, true);
       }
     }
   }
