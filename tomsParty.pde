@@ -81,6 +81,9 @@ void setup() {
   player.animations[5] = new Animation("animation/look/do_look (", 26, ").png", 2);
   player.animations[6] = new Animation("animation/stand/do_stand (", 1, ").png", 2);
 
+  sTry = new Sound("music/tente de novo.mp3", 0, false);
+  sCongrats = new Sound("music/parabens.mp3", 0, false);
+
   fill(0);
 }
 

@@ -154,23 +154,28 @@ class Level3 extends Input {
             choose = false;
             a++; // next col
             x++; // next col
-            player.moveAnywhere(posX[a], posY[0] , 2);
+            player.moveAnywhere(posX[a], posY[0], 2);
             y =-1; // back to the 1st row
             id=0;
             page = 0; // play again
           }  
           if (button[b] == 2) { 
             parecida.playSound();
+            delay(500);
+            sTry.playSound();
           }
           if (button[b] == 3) {
             grave.playSound();
+            delay(500);
+            sTry.playSound();
           }
         } else if (a>6) {
-          player.show(2, player.x, player.y, 3, false);
+          delay(2000);
+          sCongrats.playSound();
           congrats();
         }
       }
-      
+
       if (a<8 && !choose) {
         player.moveRight(posX[a]-105, 3);
         //player.moveUpDown(posY[place], 4);

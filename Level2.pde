@@ -26,7 +26,7 @@ class Level2 extends Input {
   Moves[] balloons;
 
   Sound cNote;
-  Sound agudo,grave;
+  Sound agudo, grave;
 
 
   Level2() {
@@ -197,6 +197,9 @@ class Level2 extends Input {
       //Come back to the map
       if (btn_map.execute()) {
         sMap.playSound();
+        correct = false;
+        y=-1;
+        page=0;
         PAGE = 4 ;
       }
     }
@@ -205,6 +208,9 @@ class Level2 extends Input {
       //Come back to the map
       if (btn_map.execute()) {
         sMap.playSound();
+        correct = false;
+        y=-1;
+        page=0;
         PAGE = 4 ;
       }
 
@@ -231,6 +237,7 @@ class Level2 extends Input {
           correct = false;
           y=-1;
           page=0;
+          delay(1000);
         }
         buttonPosition(buttons);
       } else if (!correct) {
@@ -297,9 +304,10 @@ class Level2 extends Input {
         if (correct) 
           balloon2.show(0, pos, 111, 2, true);
 
-        if (wrong1)
+        if (wrong1) {
           balloon2.show(1, pos, 95, 2, true);
-        else if (inside(balloon1.animations[0].images[0], pos, 111)) {
+          sTry.playSound();
+        } else if (inside(balloon1.animations[0].images[0], pos, 111)) {
           balloon2.show(2, pos, 111, 2, false);
         }
 
@@ -318,9 +326,10 @@ class Level2 extends Input {
         if (correct) 
           balloon3.show(0, pos, 111, 2, true);
 
-        if (wrong2)
+        if (wrong2) {
           balloon3.show(1, pos, 95, 2, true);
-        else if (inside(balloon1.animations[0].images[0], pos, 111)) {
+          sTry.playSound();
+        } else if (inside(balloon1.animations[0].images[0], pos, 111)) {
           balloon3.show(2, pos, 111, 2, false);
         }
         break;

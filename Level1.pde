@@ -46,8 +46,7 @@ class Level1 extends Input {
     cNote = new Sound("music/dó.mp3", 0, false);
     rock = new Sound("music/rock.mp3", +20, false);
     lawn = new Sound("music/arbusto2.mp3", 0, false);
-    sTry = new Sound("music/tente de novo.mp3", 0, false);
-    sCongrats = new Sound("music/parabens.mp3", 0, false);
+    
 
     page = 0;
   }
