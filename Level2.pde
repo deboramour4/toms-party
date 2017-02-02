@@ -14,13 +14,15 @@ class Level2 extends Input {
   boolean starting = false;
   boolean ending = false;
   boolean correct = false;
+  boolean wrong1, wrong2;
+  float time1, time2;
 
   int page;
 
   float x2 = 0.0;       
   float y2 = 0.0;
-  
-  Moves balloon1,balloon2,balloon3;
+
+  Moves balloon1, balloon2, balloon3;
 
   Sound cNote;
   Sound wrong;
@@ -29,9 +31,9 @@ class Level2 extends Input {
   Level2() {
     delay(1000);
     background = loadImage("bg/level2.png");
-    
+
     starting = true;
-    
+
     //buttons
     randomPosition(buttons);
 
@@ -51,16 +53,21 @@ class Level2 extends Input {
     bar3 = loadImage("asset/bar-3.png");
     bar4 = loadImage("asset/bar-4.png");
     bar5 = loadImage("asset/bar-5.png");
-    
+
     balloon1 = new Moves(3);
     balloon1.animations[0] = new Animation("asset/balloon", 1, ".png", 2);
     balloon1.animations[1] = new Animation("animation/balloon/corneta (", 25, ").png", 2);
-    
+    balloon1.animations[2] = new Animation("asset/balloon-over", 1, ".png", 2);
+
     balloon2 = new Moves(3);
     balloon2.animations[0] = new Animation("asset/balloon", 1, ".png", 2);
-    
+    balloon2.animations[1] = new Animation("animation/balloon/corneta (", 25, ").png", 2);
+    balloon2.animations[2] = new Animation("asset/balloon-over", 1, ".png", 2);
+
     balloon3 = new Moves(3);
     balloon3.animations[0] = new Animation("asset/balloon", 1, ".png", 2);
+    balloon3.animations[1] = new Animation("animation/balloon/corneta (", 25, ").png", 2);
+    balloon3.animations[2] = new Animation("asset/balloon-over", 1, ".png", 2);
 
     //sound
     cNote = new Sound("C note.wav", -10, false);
@@ -111,27 +118,27 @@ class Level2 extends Input {
 
   void events() {
     //Come back to the map
-    if (btn_map.execute()){
+    if (btn_map.execute()) {
       sMap.playSound();
       PAGE = 4 ;
     }
 
     player.moveRight(500, 4);
-    
+
     //println("correct : "+correct);
-    
+
     //Conditions and actions for player
     if (mousePressed && !player.moving) {
       player.show(4, 500, 290, 3, false); //witch animation, positon x, position y, velocity;
-      if(player.animations[2].animRunning == false){
-      player.animations[2].frame = 0;
+      if (player.animations[2].animRunning == false) {
+        player.animations[2].frame = 0;
       }
     } else if (player.moving) {
       player.show(3, player.x, 290, 3, true); //witch animation, positon x, position y, velocity;
     } else if (correct && !player.moving) {
       player.show(2, 500, 290, 3, false);
-      if(player.animations[2].animRunning == false){
-      player.animations[2].frame = 0;
+      if (player.animations[2].animRunning == false) {
+        player.animations[2].frame = 0;
       }
     } else { 
       player.show(0, player.x, 290, 3, true);
@@ -150,6 +157,15 @@ class Level2 extends Input {
       congrats();
       ending = true;
       //PAGE = 4;
+    }
+
+
+    if (wrong1 && millis() > time1 + 1000.0) {
+      wrong1 = false;
+    }
+
+    if (wrong2 && millis() > time2 + 1000.0) {
+      wrong2 = false;
     }
   }
 
@@ -175,43 +191,56 @@ class Level2 extends Input {
       switch (b[i]) {
       case 1:
         if ( !correct && mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
-          image(btn1On, pos, 111);
           correct = true;
           time = millis();
           cNote.playSound();
-
         } else if (!correct) {
-          //image(btn1Off, pos, 111);
-          balloon1.show(0,pos,111,2,true);  
-      }
-      
-      if(correct){
-        balloon1.show(1,pos,111,2,false);  
-      }
-        inside(btn1Off, pos, 111);
-        // println(pos);
+          balloon1.show(0, pos, 111, 2, true);
+        }
+        if (correct) {
+          balloon1.show(1, pos, 95, 2, true);
+        } else if (inside(balloon1.animations[0].images[0], pos, 111)) {
+          balloon1.show(2, pos, 111, 2, false);
+        }
+        //inside(btn1Off, pos, 111);
         break;
       case 2:
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
-          image(btn2On, pos, 111);
+          wrong1 = true;
+          time1 = millis();
           wrong.playSound();
-          
-        } else if (!correct) {
-          //image(btn2Off, pos, 111);
-          balloon2.show(0,pos,111,2,true); 
+        } else if (!correct && !wrong1) {
+          balloon2.show(0, pos, 111, 2, true);
         }
-        inside(btn2Off, pos, 111);
+        if (correct) 
+          balloon2.show(0, pos, 111, 2, true);
+
+        if (wrong1)
+          balloon2.show(1, pos, 95, 2, true);
+        else if (inside(balloon1.animations[0].images[0], pos, 111)) {
+          balloon2.show(2, pos, 111, 2, false);
+        }
+
+
+        //inside(btn2Off, pos, 111);
         break;
       case 3:
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186 && !correct) {
-          image(btn3On, pos, 111);
+          wrong2 = true;
+          time2 = millis();
+          balloon3.show(1, pos, 95, 2, true);
           wrong.playSound();
-
-        } else if (!correct) {
-          //image(btn3Off, pos, 111);
-          balloon3.show(0,pos,111,2,true); 
+        } else if (!correct && !wrong2) {
+          balloon3.show(0, pos, 111, 2, true);
         }
-        inside(btn3Off, pos, 111);
+        if (correct) 
+          balloon3.show(0, pos, 111, 2, true);
+
+        if (wrong2)
+          balloon3.show(1, pos, 95, 2, true);
+        else if (inside(balloon1.animations[0].images[0], pos, 111)) {
+          balloon3.show(2, pos, 111, 2, false);
+        }
         break;
       }
     }
