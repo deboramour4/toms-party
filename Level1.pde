@@ -21,7 +21,7 @@ class Level1 extends Input {
   int page = 0;
 
   float inicio = millis();
-  float intervalo = 3000;
+  float intervalo = 2000;
   int y = -1;
 
   //sound
@@ -59,8 +59,11 @@ class Level1 extends Input {
         assets[i].run3();
       }
       if (millis()>inicio+intervalo) {
-        cNote.playSound(); 
         y++;
+        if (y<4 && assets[y].choosen == false)
+          wrong.playSound();
+        else if (y<4 && assets[y].choosen == true)
+          cNote.playSound(); 
         inicio = millis();
       }
       if (y==5)
@@ -100,8 +103,6 @@ class Level1 extends Input {
         page = 0;
         PAGE = 4 ;
       }
-      
-      
     }
 
     //gameplay
@@ -184,13 +185,6 @@ class Asset extends Input {
     image(asset, x, y);
   }
 
-  void focus() {
-    image(assetOver, x, y);
-  }
-
-  void offFocus() {
-    image(asset, x, y);
-  }
 
   void choose() {
     this.choosen = true;

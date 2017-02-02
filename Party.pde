@@ -5,7 +5,7 @@ class Party extends Input {
   Party() {
     background = loadImage("bg/party.png");
     btn_right = new Button("button/right-up.png", "button/right-down.png", 945, 500);
-    sCutscene = new Sound("music/cutscene1.mp3", +40,false);
+    sCutscene = new Sound("music/cutscene1.mp3", +50,false);
   }
 
   void show() {

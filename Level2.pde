@@ -118,7 +118,7 @@ class Level2 extends Input {
 
     player.moveRight(500, 4);
     
-    println("correct : "+correct);
+    //println("correct : "+correct);
     
     //Conditions and actions for player
     if (mousePressed && !player.moving) {
