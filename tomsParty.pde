@@ -54,7 +54,7 @@ Moves player;
 void setup() {
   size(1000, 563);   //Dimensões proporcionais às de smartphones em geral
   imageMode(CENTER);
-    
+
   mouse = loadImage("cursor.png");
   hand = loadImage("hand.png");
   minim = new Minim(this);
@@ -138,5 +138,4 @@ void draw() {
   else
     image(mouse, mouseX, mouseY);
   imageMode(CENTER);
-
 }

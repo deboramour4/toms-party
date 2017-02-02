@@ -6,6 +6,7 @@ class Level3 extends Input {
   private float[] posY = {125, 275, 420};
   private int place=0;
   private int x=0, y=-1;
+  int b = 0;
   private int page, a = 0;
   private boolean choose = false, play=false, sing = false;      
   private float inicio = millis(), singTime;
@@ -73,14 +74,14 @@ class Level3 extends Input {
     }
 
     //gameplay
-    if (page ==1) {
+    if (page == 1) {
       image(background, width/2, height/2);
       if (insideButton(btn_map)) {
         isInside = true;
       } else
         isInside = false;
 
-      player.y = 200;
+      //player.y = 200;
 
       if (a<8) {
         player.moveRight(posX[a]-105, 3);
@@ -132,13 +133,14 @@ class Level3 extends Input {
       }
 
       //click in the lawn
-      for (int b = 0; b < 3; b++) { 
+      for (b = 0; b < 3; b++) { 
         if (a<8 && click(posX[a], posY[b], 105, 150) ) {
           if (place == b) {
             choose = false;
             a++; // next col
             x++; // next col
-            y =-1; // back to the 1st row
+            player.moveAnywhere(posX[a], posY[0] , 2);
+            y =- 1; // back to the 1st row
             page = 0; // play again
           } else {
             wrong.playSound();
@@ -147,6 +149,11 @@ class Level3 extends Input {
           player.show(2, player.x, player.y, 3, false);
           congrats();
         }
+      }
+      
+      if (a<8 && !choose) {
+        player.moveRight(posX[a]-105, 3);
+        //player.moveUpDown(posY[place], 4);
       }
     }
   }

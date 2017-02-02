@@ -27,7 +27,7 @@ class Menu extends Input { //nome da tela
     if (btn_play.execute()) {
       menu_music.volume(-10);
       sCutscene.playSound();
-      PAGE = 3;
+      PAGE = 9;
     }
 
     //PRESS HELP
