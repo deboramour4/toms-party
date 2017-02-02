@@ -27,20 +27,23 @@ class Level1 extends Input {
   //sound
   Sound cNote;
   Sound wrong;
+  Sound rock, lawn;
 
   Level1() {
     background = loadImage("bg/level1.png");
     btn_map = new Button("button/map-up.png", "button/map-down.png", 128/2+(16), height-(134/2)-16);
     next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2); 
 
-    assets[0] = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235);
-    assets[1] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174);
-    assets[2] = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155);
-    assets[3] = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344);
-    assets[4] = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433);
+    assets[0] = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235, 0);
+    assets[1] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174, 1);
+    assets[2] = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155, 0);
+    assets[3] = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344, 1);
+    assets[4] = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433, 1);
 
-    cNote = new Sound("C note.wav", -10, false);
-    wrong = new Sound("wrong.wav", -10, false);
+    cNote = new Sound("C note.wav", 0, false);
+    wrong = new Sound("wrong.wav", 0, false);
+    rock = new Sound("music/rock.mp3", 0, false);
+    lawn = new Sound("music/arbusto2.mp3", 0, false);
 
     page = 0;
   }
@@ -52,7 +55,7 @@ class Level1 extends Input {
     if (page == 0) {
       image(background, width/2, height/2);
       chooseArbor();
-      
+
       //Zé----------------------
       for (int i=0; i<=4; i++) {
         if (i==y)
@@ -61,12 +64,12 @@ class Level1 extends Input {
         assets[i].run3();
       }
       if (millis()>inicio+intervalo) {
-        if (y<4){
-          //  wrong.playSound();
-          //else if (y<4 && assets[y].choosen == true)
-          cNote.playSound(); 
-          println(assets[y+1].choosen);
-        }
+        if (y<4 && assets[y+1].choosen == true )
+          cNote.playSound();
+        else if (y<4 && assets[y+1].kind == 0)
+          rock.playSound();
+        else if (y<4 && assets[y+1].kind == 1)
+          lawn.playSound();       
         y++;
         inicio = millis();
       }
@@ -142,8 +145,8 @@ class Level1 extends Input {
   }
 
   void congrats() {
-    fill(0, 150);
-    rect(250, 100, 500, 400);
+    fill(0, 50);
+    rect(0, 0, width, height);
     if (next_level.execute()) {
       choose = false;
       for (int i =0; i<3; i++) 
@@ -160,13 +163,15 @@ class Asset extends Input {
   private PImage assetOver;
   private float x, y;
   private boolean choosen;
+  int kind;
 
-  Asset(String asset, String assetOver, float x, float y ) {
+  Asset(String asset, String assetOver, float x, float y, int kind ) {
     this.asset = loadImage(asset);
     this.assetOver = loadImage(assetOver);
     this.x = x;
     this.y = y;
     this.choosen = false;
+    this.kind = kind;
   }
 
   boolean run() {
