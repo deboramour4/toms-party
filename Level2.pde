@@ -80,6 +80,8 @@ class Level2 extends Input {
     cNote = new Sound("music/dó.mp3", +10, false);
     agudo = new Sound("music/agudo.mp3", +10, false);
     grave = new Sound("music/grave.mp3", +10, false);
+    
+
 
     page = 0;
   }
@@ -338,8 +340,8 @@ class Level2 extends Input {
   }
 
   void congrats() {
-    fill(0, 150);
-    rect(250, 100, 500, 400);
+    fill(0, 50);
+    rect(0, 0,width, height);
     if (next_level.execute()) {
       //ZERA OQ TIVER DE SER ZERADO AQUI
       cont =0;

@@ -46,7 +46,7 @@ class Level1 extends Input {
     cNote = new Sound("music/dó.mp3", 0, false);
     rock = new Sound("music/rock.mp3", +20, false);
     lawn = new Sound("music/arbusto2.mp3", 0, false);
-    
+
 
     page = 0;
   }
@@ -187,6 +187,7 @@ class Level1 extends Input {
       for (int i =0; i<3; i++) 
         assets[i].choosen = false;
       page=1;
+      player.x = -10;
       PAGE = 7;
       delay(400);
     }

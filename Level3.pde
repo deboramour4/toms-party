@@ -2,13 +2,13 @@ class Level3 extends Input {
   private PImage background;
   private PImage monsterC, light ;
   private Button btn_map, next_level;
-  private float[] posX = {150, 260, 380, 510, 620, 740, 870, 950};
-  private float[] posY = {125, 275, 420};
+  private float[] posX = {179, 285, 396, 501, 608, 717, 820, 940};
+  private float[] posY = {123, 263, 403};
   private int place=0;
   int b = 0;
   private int x=0, y=-1, id=0;
   private int page, a = 0;
-  private boolean choose = false, play=false, sing = false, wrong1= true, wrong2 = false, valido=false;      
+  private boolean choose = false, play=false, sing = false, win = false, valido=false;      
   private float inicio = millis(), singTime;
   private float intervalo = 3000; //3 segundos
   Sound cNote;
@@ -30,6 +30,7 @@ class Level3 extends Input {
     grave = new Sound("music/grave.mp3", +10, false); // grave
     parecida = new Sound("music/erro.mp3", +10, false); ///parecido
 
+
     button = new int[3];
     page=0;
   }
@@ -48,7 +49,7 @@ class Level3 extends Input {
 
       if (a<8) {
         //player.moveRight(posX[a]-105, 2);
-        player.moveAnywhere(posX[a]-105, posY[place], 3);
+        player.moveAnywhere(posX[a]-110, posY[place], 3);
       }
 
       if (!player.moving) 
@@ -89,6 +90,11 @@ class Level3 extends Input {
 
     //gameplay
     if (page == 1) {
+      if (win) {
+        sCongrats.playSound();
+        win = false;
+      }
+
       image(background, width/2, height/2);
       if (insideButton(btn_map)) {
         isInside = true;
@@ -170,8 +176,7 @@ class Level3 extends Input {
             sTry.playSound();
           }
         } else if (a>6) {
-          delay(2000);
-          sCongrats.playSound();
+          win = true;
           congrats();
         }
       }
@@ -197,8 +202,8 @@ class Level3 extends Input {
 
 
   void congrats() {
-    fill(0, 150);
-    rect(250, 100, 500, 400);
+    fill(0, 50);
+    rect(0, 0, width, height);
     if (next_level.execute()) {
       //ZERA OQ TIVER DE SER ZERADO AQUI
       choose=false;
@@ -207,7 +212,7 @@ class Level3 extends Input {
       y=-1;
       player.x = -10;
       page=0;
-      PAGE = 4;
+      PAGE = 1;
     }
   }
 }
