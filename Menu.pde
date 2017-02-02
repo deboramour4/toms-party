@@ -1,10 +1,11 @@
 class Menu extends Input { //nome da tela
-  private PImage background;
+  private PImage background, logo;
   Button btn_play, btn_help;
   boolean help_click;
  
   Menu() {
     background = loadImage("bg/menu.png");
+    logo = loadImage("logo.png");
     btn_play = new Button("button/play-up.png", "button/play-down.png", width/2, height-(134/2)-16-50);
     btn_help= new Button("button/help-up.png", "button/help-down.png", width-(128/2)-16, 134/2+(16));
     help_click = false;
@@ -14,6 +15,7 @@ class Menu extends Input { //nome da tela
   void show() {
     menu_music.playLoop();
     image(background, width/2, height/2);
+    image(logo,width/2, height/2-70);
 
     if (insideButton(btn_play) || insideButton(btn_help))
       isInside = true;

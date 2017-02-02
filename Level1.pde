@@ -46,6 +46,8 @@ class Level1 extends Input {
     cNote = new Sound("music/dó.mp3", 0, false);
     rock = new Sound("music/rock.mp3", +20, false);
     lawn = new Sound("music/arbusto2.mp3", 0, false);
+    sTry = new Sound("music/tente de novo.mp3", 0, false);
+    sCongrats = new Sound("music/parabens.mp3", 0, false);
 
     page = 0;
   }
@@ -97,18 +99,20 @@ class Level1 extends Input {
 
       if (page ==2) {
         if (find) {
-          player.show(5, assets[r].x, assets[r].y-200, 5, false);
+          player.show(5, assets[r].x, assets[r].y-130, 5, false);
           assets[r].run();
         }
         if (millis() > findTime + 1500.0 && !out) {
           //find = false;
           out = true;
           cNote.playSound();
-          delay(3000);
+          delay(2000);
+          sCongrats.playSound();
         }
 
-        if (out)
+        if (out) {
           congrats();
+        }
 
 
         //println("millis : "+millis()+" | findtime :"+findTime+1500.0);
@@ -149,10 +153,16 @@ class Level1 extends Input {
           page = 2;
           //PAGE = 7;
         } else if (clickRadial(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == false) {
-          if (assets[i].kind == 0)
+          if (assets[i].kind == 0) {
             rock.playSound();
-          if (assets[i].kind == 1)
+            delay(500);
+            sTry.playSound();
+          }
+          if (assets[i].kind == 1) {
             lawn.playSound();
+            delay(500);
+            sTry.playSound();
+          }
         }
       }
     }

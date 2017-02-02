@@ -45,6 +45,8 @@ Sound sParty; //click in the party at menu
 Sound cHouse; //intro of the do House
 Sound sMap; // intro of the map
 Sound sCutscene; // sound of the cutscene
+Sound sCongrats; // congratulations
+Sound sTry; // try again
 // --- sounds
 
 // ---------------------------- personagem
