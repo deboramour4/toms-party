@@ -14,7 +14,10 @@ class Level1 extends Input {
   boolean ending = false;
   boolean correct = false;
 
-  int i=0;
+  boolean find = false, out = false;
+  float findTime;
+
+  int  r;
 
   PImage btn1Off, lock;
 
@@ -35,14 +38,13 @@ class Level1 extends Input {
     next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2); 
 
     assets[0] = new Asset("asset/rock1.png", "asset/rock1Over.png", 210, 235, 0);
-    assets[1] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 174, 1);
+    assets[1] = new Asset("asset/arbo1.png", "asset/arbo1Over.png", 460, 150, 1);
     assets[2] = new Asset("asset/rock2.png", "asset/rock2Over.png", 744, 155, 0);
     assets[3] = new Asset("asset/arbo2.png", "asset/arbo2Over.png", 817, 344, 1);
     assets[4] = new Asset("asset/arbo3.png", "asset/arbo3Over.png", 493, 433, 1);
 
-    cNote = new Sound("C note.wav", 0, false);
-    wrong = new Sound("wrong.wav", 0, false);
-    rock = new Sound("music/rock.mp3", 0, false);
+    cNote = new Sound("music/dó.mp3", 0, false);
+    rock = new Sound("music/rock.mp3", +20, false);
     lawn = new Sound("music/arbusto2.mp3", 0, false);
 
     page = 0;
@@ -94,17 +96,35 @@ class Level1 extends Input {
       assets[4].run();
 
       if (page ==2) {
-        congrats();
+        if (find) {
+          player.show(5, assets[r].x, assets[r].y-200, 5, false);
+          assets[r].run();
+        }
+        if (millis() > findTime + 1500.0 && !out) {
+          //find = false;
+          out = true;
+          cNote.playSound();
+          delay(3000);
+        }
+
+        if (out)
+          congrats();
+
+
+        //println("millis : "+millis()+" | findtime :"+findTime+1500.0);
+        //congrats();
       }
     }
   }
 
   void events() {
-
     //intro
     if (page == 0) {
       if (btn_map.execute()) {
         sMap.playSound();
+        choose = false;
+        find = false;
+        y=-1;
         page = 0;
         PAGE = 4 ;
       }
@@ -115,18 +135,24 @@ class Level1 extends Input {
 
       if (btn_map.execute()) {
         sMap.playSound();
+        choose = false;
+        find = false;
+        y=-1;
         page = 0;
         PAGE = 4 ;
       }
 
       for (int i =0; i<5; i++) {
         if (clickRadial(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == true) {
-          cNote.playSound();
+          find = true;
+          findTime = millis();
           page = 2;
           //PAGE = 7;
         } else if (clickRadial(assets[i].asset, assets[i].x, assets[i].y) && assets[i].choosen == false) {
-          wrong.playSound();
-          //player.show(4, 500, 300, 3);
+          if (assets[i].kind == 0)
+            rock.playSound();
+          if (assets[i].kind == 1)
+            lawn.playSound();
         }
       }
     }
@@ -137,8 +163,8 @@ class Level1 extends Input {
 
   void chooseArbor() {
     if (!choose) {
-      int i = int(random(5));
-      assets[i].choose();
+      r = int(random(5));
+      assets[r].choose();
       choose = true;
       // println(i);
     }

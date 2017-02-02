@@ -74,7 +74,7 @@ void setup() {
   player.animations[2] = new Animation("animation/happy/do_happy (", 31, ").png", 2);
   player.animations[3] = new Animation("animation/walk/do_walk (", 30, ").png", 2);
   player.animations[4] = new Animation("animation/sad/do_sad (", 26, ").png", 2);
-  player.animations[5] = new Animation("animation/look/do_look (", 24, ").png", 2);
+  player.animations[5] = new Animation("animation/look/do_look (", 26, ").png", 2);
   player.animations[6] = new Animation("animation/stand/do_stand (", 1, ").png", 2);
 
   fill(0);

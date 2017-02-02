@@ -21,7 +21,7 @@ class Level3 extends Input {
     next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2);
 
     //sound
-    cNote = new Sound("C note.wav", -10, false);
+    cNote = new Sound("music/dó.mp3", -10, false);
     wrong = new Sound("wrong.wav", -10, false);
 
     page=0;

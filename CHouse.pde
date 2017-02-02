@@ -23,21 +23,25 @@ class CHouse extends Input {
   void events() {
       if (btn_level1.execute()){
         cHouse.stopSound();
+        menu_music.stopSound();
         PAGE = 6;
       }
 
       if (btn_level2.execute()){
         cHouse.stopSound();
+        menu_music.stopSound();
         PAGE = 7;
       }
 
       if (btn_level3.execute()){
         cHouse.stopSound();
+        menu_music.stopSound();
         PAGE = 8;
       }
 
       if (btn_map.execute()) {
         cHouse.stopSound();
+        menu_music.playSound();
         sMap.playSound();
         PAGE = 4 ;
       }
