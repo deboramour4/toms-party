@@ -51,6 +51,8 @@ class Level1 extends Input {
     //intro
     if (page == 0) {
       image(background, width/2, height/2);
+      chooseArbor();
+      
       //Zé----------------------
       for (int i=0; i<=4; i++) {
         if (i==y)
@@ -59,11 +61,13 @@ class Level1 extends Input {
         assets[i].run3();
       }
       if (millis()>inicio+intervalo) {
-        y++;
-        if (y<4 && assets[y].choosen == false)
-          wrong.playSound();
-        else if (y<4 && assets[y].choosen == true)
+        if (y<4){
+          //  wrong.playSound();
+          //else if (y<4 && assets[y].choosen == true)
           cNote.playSound(); 
+          println(assets[y+1].choosen);
+        }
+        y++;
         inicio = millis();
       }
       if (y==5)
@@ -79,8 +83,6 @@ class Level1 extends Input {
         //player.show(5, rock1.x, rock1.y-100, 5,false) ;
       } else
         isInside = false;
-
-      chooseArbor();
 
       assets[0].run();
       assets[1].run();
@@ -164,8 +166,6 @@ class Asset extends Input {
     this.assetOver = loadImage(assetOver);
     this.x = x;
     this.y = y;
-    println("X asset = "+x);
-    println("Y asset = "+y);
     this.choosen = false;
   }
 
