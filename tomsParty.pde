@@ -25,6 +25,7 @@ import ddf.minim.ugens.*;
 Minim minim;
 
 Menu menu; //1
+Cutscene cutscene;
 Credits credits; //2
 Party party; //3
 Map map; //4
@@ -62,6 +63,7 @@ void setup() {
   minim = new Minim(this);
   map = new Map();
   menu = new Menu();
+  cutscene = new Cutscene();
   party = new Party();
   chouse = new CHouse();
   level1 = new Level1();
@@ -131,6 +133,11 @@ void draw() {
     level3.show();
     text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
     level3.events();
+    break;
+
+  case 9:
+    cutscene.show();
+    text("X : "+mouseX+"\nY : "+mouseY, 20, 20);
     break;
   }
   noCursor();
