@@ -17,9 +17,9 @@ class Input {
   //  the paramethers are: a image button, x and y of the image button
   boolean click(float x0, float y0, float x, float y) {
     if (mousePressed && mouseX>x0-x/2 && mouseX<x0+x/2 && mouseY>y0-y/2 && mouseY<y0+y/2) {
-      rect(x0-x/2,y0-y/2
-      
-      ,x,y);
+      rect(x0-x/2, y0-y/2
+
+        , x, y);
       return true;
     } else {
       return false;
@@ -142,6 +142,36 @@ class Button extends Input {
     }
 
 
+    // test the click  
+    //Estate machine transitions
+    if (!pressed && mousePressed) {    // pressed transition to = true
+      pressed = true;
+    }
+    if (pressed && !mousePressed) {  // pressed transition to = false
+      pressed = false;   
+      if (inside(normalI, x, y)) {
+        clicked= true;
+      }
+    }
+    return clicked;
+  }
+
+
+  // This function check if the button was clicked and returns a boolean
+  boolean execute2()
+  {
+    //draw the button
+    clicked = false;
+    if (inside(normalI, x, y)) {
+      if (pressed) {
+        image(pressedI, x, y);
+      } else
+      {
+        image(pressedI, x, y);
+      }
+    } else {
+      image(normalI, x, y);
+    }
     // test the click  
     //Estate machine transitions
     if (!pressed && mousePressed) {    // pressed transition to = true

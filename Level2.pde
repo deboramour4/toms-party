@@ -26,7 +26,7 @@ class Level2 extends Input {
   Moves[] balloons;
 
   Sound cNote;
-  Sound wrong;
+  Sound agudo,grave;
 
 
   Level2() {
@@ -78,7 +78,8 @@ class Level2 extends Input {
 
     //sound
     cNote = new Sound("music/dó.mp3", +10, false);
-    wrong = new Sound("wrong.wav", +10, false);
+    agudo = new Sound("music/agudo.mp3", +10, false);
+    grave = new Sound("music/grave.mp3", +10, false);
 
     page = 0;
   }
@@ -113,9 +114,9 @@ class Level2 extends Input {
           if (y<2 && buttons[y+1] == 1)
             cNote.playSound();
           else if (y<2 && buttons[y+1] == 2)
-            wrong.playSound();
+            agudo.playSound();
           else if (y<2 &&  buttons[y+1] == 3)
-            wrong.playSound();       
+            grave.playSound();       
           y++;
           inicio = millis();
         }
@@ -289,7 +290,7 @@ class Level2 extends Input {
         if (mousePressed && mouseX>pos-75 && mouseX<pos+75 && mouseY>36 && mouseY<186) {
           wrong1 = true;
           time1 = millis();
-          wrong.playSound();
+          agudo.playSound();
         } else if (!correct && !wrong1) {
           balloon2.show(0, pos, 111, 2, true);
         }
@@ -310,7 +311,7 @@ class Level2 extends Input {
           wrong2 = true;
           time2 = millis();
           balloon3.show(1, pos, 95, 2, true);
-          wrong.playSound();
+          grave.playSound();
         } else if (!correct && !wrong2) {
           balloon3.show(0, pos, 111, 2, true);
         }

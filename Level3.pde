@@ -5,13 +5,15 @@ class Level3 extends Input {
   private float[] posX = {150, 260, 380, 510, 620, 740, 870, 950};
   private float[] posY = {125, 275, 420};
   private int place=0;
-  private int x=0, y=-1;
+  private int x=0, y=-1, id=0;
   private int page, a = 0;
-  private boolean choose = false, play=false, sing = false;      
+  private boolean choose = false, play=false, sing = false, wrong1= true, wrong2 = false, valido=false;      
   private float inicio = millis(), singTime;
   private float intervalo = 3000; //3 segundos
   Sound cNote;
-  Sound wrong;
+  Sound grave, parecida;
+
+  int[] button;
 
   Level3() {
     background = loadImage("bg/level3.png");
@@ -21,13 +23,18 @@ class Level3 extends Input {
     next_level = new Button("button/right-up.png", "button/right-down.png", width/2, height/2);
 
     //sound
-    cNote = new Sound("music/dó.mp3", -10, false);
-    wrong = new Sound("wrong.wav", -10, false);
+    cNote = new Sound("music/dó.mp3", +10, false);
 
+    //erro[0] = new Sound("music/agudo.mp3", +10, false); //agudo
+    grave = new Sound("music/grave.mp3", +10, false); // grave
+    parecida = new Sound("music/erro.mp3", +10, false); ///parecido
+
+    button = new int[3];
     page=0;
   }
 
   void show() {
+    println(button[0]+" "+button[1]+" "+button[2]);
     //intro
     if (page == 0) {
       image(background, width/2, height/2);
@@ -39,7 +46,8 @@ class Level3 extends Input {
       player.y = 200;
 
       if (a<8) {
-        player.moveRight(posX[a]-105, 2);
+        //player.moveRight(posX[a]-105, 2);
+        player.moveAnywhere(posX[a]-105, posY[place], 3);
       }
 
       if (!player.moving) 
@@ -48,8 +56,10 @@ class Level3 extends Input {
       player.show(3, player.x, player.y, 3, true); //witch animation, positon x, position y, velocity;
 
       //Choose the right note
-      chooseLawn();
-
+      if (!choose) {
+        chooseLawn(button);
+        choose = true;
+      }
 
       //PLAY BY ITSELF -----------------------------
       if (!player.moving) { //if it stop moving
@@ -59,13 +69,17 @@ class Level3 extends Input {
           play = true;
         } else if (x<7 && y<3) {
           image(light, posX[x], posY[y]);
-          if (place == y && play) { 
+          if (button[y] == 1 && play) { 
             cNote.playSound(); 
             play = false;
-          } else if (play) {
-            wrong.playSound();
-            play = false;
+          } 
+          if (button[y] == 2 && play) {
+            parecida.playSound();
           }
+          if (button[y] == 3 && play) {
+            grave.playSound();
+          }
+          play = false;
         } else {
           page =1;
         }
@@ -82,6 +96,7 @@ class Level3 extends Input {
 
       player.y = 200;
 
+
       if (a<8) {
         player.moveRight(posX[a]-105, 3);
         //player.moveUpDown(posY[place], 4);
@@ -92,7 +107,7 @@ class Level3 extends Input {
       } else if (sing) {
         cNote.playSound();
         player.show(1, player.x, player.y, 3, false);
-        if(millis() > singTime+2000)
+        if (millis() > singTime+2000)
           sing = false;
       } else {
         player.show(0, player.x, player.y, 3, true);
@@ -134,14 +149,19 @@ class Level3 extends Input {
       //click in the lawn
       for (int b = 0; b < 3; b++) { 
         if (a<8 && click(posX[a], posY[b], 105, 150) ) {
-          if (place == b) {
+          if (button[b] == 1) {
             choose = false;
             a++; // next col
             x++; // next col
             y =-1; // back to the 1st row
+            id=0;
             page = 0; // play again
-          } else {
-            wrong.playSound();
+          }  
+          if (button[b] == 2) { 
+            parecida.playSound();
+          }
+          if (button[b] == 3) {
+            grave.playSound();
           }
         } else if (a>6) {
           player.show(2, player.x, player.y, 3, false);
@@ -151,13 +171,18 @@ class Level3 extends Input {
     }
   }
 
-  void chooseLawn() {
-    if (!choose) {
-      place = int(random(3));
-      choose = true;
-      println("RIGHT PLACE : "+place);
+  void chooseLawn(int[] b) {
+    for (int i = 0; i < b.length; i++) {
+      do {
+        button[i] = int(random(1, 4));
+        valido = true;
+        for (int j = 0; j < i; j++)
+          if (b[i] == button[j])
+            valido = false;
+      } while (valido == false);
     }
   }
+
 
   void congrats() {
     fill(0, 150);
